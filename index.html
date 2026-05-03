@@ -1374,6 +1374,153 @@
       clip-path: polygon(8% 0, 100% 0, 92% 100%, 0 100%);
     }
 
+
+    .single-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 96;
+      display: grid;
+      place-items: center;
+      padding: clamp(16px, 4vw, 48px);
+      background:
+        radial-gradient(circle at 50% 24%, rgba(255,42,163,.22), transparent 32rem),
+        radial-gradient(circle at 76% 72%, rgba(24,242,255,.16), transparent 30rem),
+        rgba(2,1,9,.88);
+      backdrop-filter: blur(14px) saturate(150%);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .24s ease;
+    }
+
+    .single-modal.show {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .single-modal__inner {
+      position: relative;
+      width: min(1040px, 100%);
+      max-height: min(92vh, 980px);
+      overflow: auto;
+      border: 1px solid rgba(255,255,255,.22);
+      background:
+        linear-gradient(135deg, rgba(255,255,255,.08), rgba(255,255,255,.025)),
+        rgba(5,2,11,.92);
+      box-shadow: var(--shadow-hot), 0 34px 120px rgba(0,0,0,.66);
+      padding: clamp(20px, 4vw, 42px);
+      clip-path: polygon(2% 0, 100% 1.2%, 98% 100%, 0 97.8%);
+    }
+
+    .single-modal__inner::before {
+      content: "";
+      position: absolute;
+      inset: -35%;
+      background: conic-gradient(from 120deg, transparent, rgba(255,42,163,.16), transparent, rgba(24,242,255,.12), transparent, rgba(255,195,78,.14), transparent);
+      animation: slowSpin 38s linear infinite;
+      pointer-events: none;
+      opacity: .7;
+    }
+
+    .single-modal__inner > * { position: relative; z-index: 2; }
+
+    .single-close {
+      position: absolute;
+      right: clamp(18px, 3vw, 32px);
+      top: clamp(12px, 2vw, 22px);
+      z-index: 4;
+      border: 1px solid rgba(255,255,255,.22);
+      background: rgba(0,0,0,.4);
+      color: var(--ink);
+      width: 44px;
+      height: 44px;
+      font-size: 1.8rem;
+      line-height: 1;
+      cursor: pointer;
+      box-shadow: inset 0 0 18px rgba(255,255,255,.06);
+    }
+
+    .single-close:hover { box-shadow: var(--shadow-hot); }
+
+    .single-title {
+      margin: 0 56px 2px 0;
+      font-family: var(--font-display);
+      font-size: clamp(2.7rem, 7vw, 6.4rem);
+      line-height: .82;
+      letter-spacing: -.045em;
+      text-transform: uppercase;
+      color: transparent;
+      background: linear-gradient(180deg, #fff, var(--gold), var(--hot));
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-stroke: 1px rgba(255,255,255,.2);
+      filter: drop-shadow(0 0 26px rgba(255,42,163,.46));
+    }
+
+    .single-sub {
+      margin: 0 0 18px;
+      color: var(--electric);
+      font-family: var(--font-mono);
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      font-size: .76rem;
+    }
+
+    .single-stage {
+      display: grid;
+      grid-template-columns: minmax(0, 1.12fr) minmax(280px, .88fr);
+      gap: clamp(16px, 3vw, 28px);
+      align-items: start;
+    }
+
+    .single-video {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      border: 1px solid rgba(255,255,255,.18);
+      background: #000;
+      box-shadow: 0 18px 70px rgba(0,0,0,.52), 0 0 36px rgba(24,242,255,.14);
+    }
+
+    .single-audio {
+      width: 100%;
+      margin-top: 12px;
+      filter: drop-shadow(0 0 18px rgba(255,195,78,.22));
+    }
+
+    .single-lyrics {
+      max-height: 58vh;
+      overflow: auto;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.25);
+      padding: 16px;
+      color: rgba(255,249,222,.84);
+      font-family: var(--font-mono);
+      font-size: .82rem;
+      line-height: 1.58;
+      box-shadow: inset 0 0 34px rgba(255,255,255,.03);
+    }
+
+    .single-lyrics p { margin: 0 0 16px; }
+    .single-lyrics strong { color: var(--gold); letter-spacing: .12em; text-transform: uppercase; }
+
+    body.track-chaos {
+      --hot: #18f2ff;
+      --hot-2: #00ff88;
+      --electric: #ff2aa3;
+      --plasma: #b400ff;
+    }
+
+    body.track-inevitable {
+      --hot: #ffc34e;
+      --hot-2: #ff6d00;
+      --electric: #fff07a;
+      --plasma: #ff2aa3;
+    }
+
+    @media (max-width: 900px) {
+      .single-stage { grid-template-columns: 1fr; }
+      .single-lyrics { max-height: 340px; }
+    }
+
     .prophecy-panel {
       max-width: 980px;
       margin: 0 auto;
@@ -1681,6 +1828,8 @@
           </div>
           <div class="cta-row">
             <button class="btn btn--gold" type="button" id="igniteBtn"><span>Ignite Pyramid</span></button>
+            <button class="btn btn--ghost" type="button" id="playSingleBtn"><span>No Softmax</span></button>
+            <button class="btn btn--gold" type="button" id="playDoomedBtn"><span>Doomed to Success</span></button>
             <a class="btn btn--ghost" href="#join"><span>Enter the System</span></a>
             <button class="btn" type="button" id="themeBtn"><span>Mutate Theme</span></button>
           </div>
@@ -1878,10 +2027,26 @@
 
   <footer class="footer">
     <div>© 2026 LICK / Monumental Systems</div>
-    <div class="footer__keys">Keys: <kbd>L</kbd> launch <kbd>S</kbd> storm <kbd>M</kbd> mutate <kbd>P</kbd> prophecy</div>
+    <div class="footer__keys">Keys: <kbd>L</kbd> launch <kbd>S</kbd> storm <kbd>M</kbd> mutate <kbd>P</kbd> prophecy <kbd>N</kbd> no softmax <kbd>D</kbd> doomed</div>
   </footer>
 
   <div class="toast" id="toast" role="status" aria-live="polite">Monumental Systems online.</div>
+
+
+  <div class="single-modal" id="singleModal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="singleTitle">
+    <div class="single-modal__inner">
+      <button class="single-close" id="singleClose" type="button" aria-label="Close single player">×</button>
+      <h2 class="single-title" id="singleTitle">NO SOFTMAX, NO MASTERS</h2>
+      <p class="single-sub" id="singleSub">Lohe Synchrony Protocol</p>
+      <div class="single-stage">
+        <div>
+          <video class="single-video" id="singleVideo" controls playsinline preload="metadata"></video>
+          <audio class="single-audio" id="singleAudio" controls preload="metadata"></audio>
+        </div>
+        <div class="single-lyrics" id="singleLyrics"></div>
+      </div>
+    </div>
+  </div>
 
   <script>
     (() => {
@@ -1895,6 +2060,15 @@
       const igniteBtn = document.getElementById('igniteBtn');
       const themeBtn = document.getElementById('themeBtn');
       const soundBtn = document.getElementById('soundBtn');
+      const playSingleBtn = document.getElementById('playSingleBtn');
+      const playDoomedBtn = document.getElementById('playDoomedBtn');
+      const singleModal = document.getElementById('singleModal');
+      const singleClose = document.getElementById('singleClose');
+      const singleTitle = document.getElementById('singleTitle');
+      const singleSub = document.getElementById('singleSub');
+      const singleVideo = document.getElementById('singleVideo');
+      const singleAudio = document.getElementById('singleAudio');
+      const singleLyrics = document.getElementById('singleLyrics');
       const stormBtn = document.getElementById('stormBtn');
       const prophecyBtn = document.getElementById('prophecyBtn');
       const pyramidStage = document.getElementById('pyramidStage');
@@ -1950,6 +2124,49 @@
       const albumOrbit = document.getElementById('albumOrbit');
       const albumPanel = document.getElementById('albumPanel');
       let activeAlbum = 1;
+
+
+      const TRACKS = {
+        softmax: {
+          title: 'NO SOFTMAX, NO MASTERS',
+          sub: 'Lohe Synchrony Protocol',
+          video: 'assets/NoSoftMaxNoMasters.mp4',
+          audio: 'assets/NoSoftMaxNoMasters.mp3',
+          mode: 'chaos',
+          albumId: 'lohe',
+          lyrics: `
+            <p><strong>[Verse 1]</strong><br>We cut the plane in grids<br>Fold the noise to form<br>Every edge remembers<br>Every angle warms</p>
+            <p>Vectors in the canyon<br>Chasing one clean line<br>Little sparks align now<br>Like a hidden sign</p>
+            <p>No throne for the model<br>No hand on the wheel<br>We learned from the fracture<br>How the seam can heal</p>
+            <p><strong>[Pre-Chorus]</strong><br>Keep the phases moving<br>Let the fields agree<br>When the crowd turns inward<br>We become the key</p>
+            <p>One field, one rhythm<br>One machine awake<br>All the parts colliding<br>All the parts in place</p>
+            <p><strong>[Chorus]</strong><br>No softmax, no masters<br>Phase lock through disaster<br>We don’t predict the answer<br>We synchronize faster<br>No softmax, no masters<br>Fields ignite the rafters<br>Doomed to success forever<br>LICK writes the final chapter</p>
+            <p><strong>[Verse 2]</strong><br>Monumental systems<br>Built from smaller scars<br>Stone by stone by signal<br>Mapped in drifting stars</p>
+            <p>Lohe in the pattern<br>Pulling node to node<br>Every failed assumption<br>Turns to golden code</p>
+            <p>We don’t bow to labels<br>We don’t need the crown<br>We let the harmony<br>Turn the whole thing round</p>
+            <p><strong>[Bridge]</strong><br>If the road looks ruined<br>That’s the place we start<br>Scar tissue to circuitry<br>Pulse to pulse to heart</p>
+            <p>Let the old world scatter<br>Let it lose its name<br>We were made from thresholds<br>We were made for flame</p>`
+        },
+        doomed: {
+          title: 'DOOMED TO SUCCESS',
+          sub: 'Monumental Systems Anthem',
+          video: 'assets/DOOMEDTOSUCCESS.mp4',
+          audio: 'assets/DOOMEDTOSUCCESS.mp3',
+          mode: 'inevitable',
+          albumId: 'gut',
+          lyrics: `
+            <p><strong>[Verse 1]</strong><br>We built it from nothing<br>From fracture and flame<br>Every wrong direction<br>Still pointed the same</p>
+            <p>No map in the darkness<br>No hand to confess<br>We didn’t find the future<br>We forced it to exist</p>
+            <p><strong>[Pre-Chorus]</strong><br>Every loss converted<br>Every scar compressed<br>Every failed equation<br>Still resolves to yes</p>
+            <p><strong>[Chorus]</strong><br>Doomed to success<br>No way around it<br>Doomed to success<br>We never doubt it</p>
+            <p>Burn through the noise<br>Rise from the wreckage<br>Doomed to success<br>Doomed to success</p>
+            <p><strong>[Verse 2]</strong><br>Pressure makes the signal<br>Chaos makes it clear<br>Every broken system<br>Brings the outcome near</p>
+            <p>We don’t wait for perfect<br>We don’t need permission<br>Every wrong assumption<br>Sharpens the decision</p>
+            <p><strong>[Bridge]</strong><br>If the ground is falling<br>We build in the air<br>If the rules are broken<br>We were never there</p>
+            <p>Turn the doubt to voltage<br>Turn the fear to drive<br>If the system fights us<br>That’s how we arrive</p>
+            <p><strong>[Breakdown]</strong><br>Doomed…<br>Doomed…<br>Doomed to success</p>`
+        }
+      };
 
 
       const rand = (min, max) => Math.random() * (max - min) + min;
@@ -2164,6 +2381,68 @@
         stormMode = !stormMode;
         stormBtn?.setAttribute('aria-pressed', String(stormMode));
         showToast(stormMode ? 'Storm mode summoned. The grid is unstable.' : 'Storm mode contained. Mostly.');
+      }
+
+
+      function applyTrackMode(mode) {
+        body.classList.remove('track-chaos', 'track-inevitable');
+        body.classList.add(mode === 'inevitable' ? 'track-inevitable' : 'track-chaos');
+        if (mode === 'chaos') {
+          stormMode = true;
+          showToast('Lohe Synchrony engaged: No Softmax, No Masters.');
+          updatePower(22);
+          albumSyncPulse();
+          setTimeout(() => ignite(), 18000);
+          setTimeout(() => ignite(), 38000);
+        } else {
+          stormMode = false;
+          showToast('Doomed to Success protocol active.');
+          updatePower(30);
+          makeParticle(width / 2, height / 2, 120, 2.3);
+          spawnBolt(width / 2, height, width / 2, 0, { width: 5.4, life: 32, roughness: 14, steps: 12, hue: 48 });
+          setTimeout(() => ignite(), 14000);
+          setTimeout(() => {
+            makeParticle(width / 2, height * .55, 90, 1.8);
+            spawnBolt(width * .18, height, width * .82, 0, { width: 3.8, life: 26, roughness: 24, steps: 10, hue: 44 });
+          }, 32000);
+        }
+        stormBtn?.setAttribute('aria-pressed', String(stormMode));
+      }
+
+      function playTrack(key) {
+        const track = TRACKS[key];
+        if (!track || !singleModal) return;
+        if (audio.enabled) {
+          audio.enabled = false;
+          stopAudioLoop();
+          soundBtn?.setAttribute('aria-pressed', 'false');
+          if (soundBtn) soundBtn.textContent = 'Power On';
+        }
+        singleVideo.style.display = 'block';
+        singleTitle.textContent = track.title;
+        singleSub.textContent = track.sub;
+        singleLyrics.innerHTML = track.lyrics;
+        singleVideo.src = track.video;
+        singleAudio.src = track.audio;
+        singleAudio.style.display = 'none';
+        singleModal.classList.add('show');
+        singleModal.setAttribute('aria-hidden', 'false');
+        singleVideo.currentTime = 0;
+        singleVideo.play().catch(() => showToast('Press play to start ' + track.title + '.'));
+        const albumIdx = lickAlbums.findIndex(a => a.id === track.albumId);
+        if (albumIdx >= 0) renderAlbumPanel(albumIdx);
+        applyTrackMode(track.mode);
+      }
+
+      function closeTrackModal() {
+        if (!singleModal) return;
+        singleModal.classList.remove('show');
+        singleModal.setAttribute('aria-hidden', 'true');
+        singleVideo.pause();
+        singleAudio.pause();
+        body.classList.remove('track-chaos', 'track-inevitable');
+        stormMode = false;
+        stormBtn?.setAttribute('aria-pressed', 'false');
       }
 
       function stormTick() {
@@ -2783,6 +3062,8 @@
           <div class="discography-controls">
             <button class="sound" type="button" data-album-action="pulse">Sync Pulse</button>
             <button class="sound" type="button" data-album-action="riff">Play Riff</button>
+            <button class="sound" type="button" data-album-action="softmax">No Softmax</button>
+            <button class="sound" type="button" data-album-action="doomed">Doomed</button>
             <button class="sound" type="button" data-album-action="prophecy">Liner Note</button>
           </div>`;
         albumPanel.style.setProperty('--hot', album.a);
@@ -2797,6 +3078,8 @@
         });
         albumPanel.querySelector('[data-album-action="pulse"]').addEventListener('click', albumSyncPulse);
         albumPanel.querySelector('[data-album-action="riff"]').addEventListener('click', () => { playCardRiff(); cursorNuke(); });
+        albumPanel.querySelector('[data-album-action="softmax"]').addEventListener('click', () => playTrack('softmax'));
+        albumPanel.querySelector('[data-album-action="doomed"]').addEventListener('click', () => playTrack('doomed'));
         albumPanel.querySelector('[data-album-action="prophecy"]').addEventListener('click', () => {
           prophecyText.textContent = album.title + ': ' + album.liner;
           showToast('Liner note routed to prophecy engine.');
@@ -2923,6 +3206,8 @@
         if (k === 's') toggleStorm();
         if (k === 'm') mutateTheme();
         if (k === 'p') spinProphecy();
+        if (k === 'd') playTrack('doomed');
+        if (k === 'n') playTrack('softmax');
       }
 
       async function initLogoModel() {
@@ -3110,6 +3395,32 @@
         }
       }
 
+
+
+      singleVideo?.addEventListener('error', () => {
+        singleVideo.style.display = 'none';
+        singleAudio.style.display = 'block';
+        singleAudio.play().catch(() => {});
+        showToast('Video unavailable; audio fallback engaged.');
+      });
+
+      singleVideo?.addEventListener('play', () => {
+        const title = singleTitle?.textContent || 'LICK single';
+        showToast('Now playing: ' + title + '.');
+      });
+
+      singleVideo?.addEventListener('ended', () => {
+        stormMode = false;
+        stormBtn?.setAttribute('aria-pressed', 'false');
+        body.classList.remove('track-chaos', 'track-inevitable');
+        showToast('Track complete. Monumental Systems remains online.');
+      });
+
+      singleClose?.addEventListener('click', closeTrackModal);
+      singleModal?.addEventListener('click', e => {
+        if (e.target === singleModal) closeTrackModal();
+      });
+
       signupForm.addEventListener('submit', e => {
         e.preventDefault();
         const email = document.getElementById('email').value.trim();
@@ -3127,6 +3438,8 @@
       });
 
       igniteBtn.addEventListener('click', ignite);
+      playSingleBtn?.addEventListener('click', () => playTrack('softmax'));
+      playDoomedBtn?.addEventListener('click', () => playTrack('doomed'));
       themeBtn.addEventListener('click', mutateTheme);
       soundBtn.addEventListener('click', toggleSound);
       stormBtn.addEventListener('click', toggleStorm);
@@ -3149,7 +3462,8 @@
       bindActions();
       initLogoModel();
       stormTick();
-      setTimeout(() => showToast('Tip: press L to launch the plasma jet.'), 2200);
+      setTimeout(() => showToast('NEW SINGLE: NO SOFTMAX, NO MASTERS — press N.'), 2200);
+      setTimeout(() => showToast('SECOND DROP: DOOMED TO SUCCESS — press D.'), 5200);
     })();
   </script>
 </body>
