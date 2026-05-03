@@ -230,25 +230,16 @@
       filter: drop-shadow(0 0 14px rgba(255,195,78,.72));
     }
 
-    .brand__mark span {
-      position: absolute;
-      width: 0;
-      height: 0;
-      border-left: 22px solid transparent;
-      border-right: 22px solid transparent;
-      border-bottom: 32px solid var(--gold);
-      transform: rotate(180deg) translateY(-2px);
-      clip-path: polygon(50% 0%, 92% 78%, 8% 78%);
+    .brand__mark svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+      overflow: visible;
     }
 
+    .brand__mark::before,
     .brand__mark::after {
-      content: "";
-      position: absolute;
-      width: 34px;
-      height: 5px;
-      background: #100908;
-      box-shadow: 0 9px #100908, 0 18px #100908;
-      transform: translateY(-5px) skewX(-12deg);
+      content: none;
     }
 
     .brand strong {
@@ -575,7 +566,7 @@
 
     .poster-card {
       position: relative;
-      width: min(520px, 86vw);
+      width: min(500px, 84vw);
       transform: rotateX(var(--tiltX)) rotateY(var(--tiltY));
       transform-style: preserve-3d;
       transition: transform .08s ease-out;
@@ -598,7 +589,7 @@
       aspect-ratio: 1;
       object-fit: contain;
       object-position: center;
-      padding: clamp(4px, .8vw, 10px);
+      padding: clamp(10px, 1.2vw, 18px);
       background: radial-gradient(circle at 50% 44%, rgba(255,195,78,.16), rgba(5,2,11,.76) 62%, rgba(0,0,0,.92));
       border: 1px solid rgba(255,255,255,.22);
       clip-path: polygon(3% 0, 100% 2.5%, 97% 100%, 0 96%);
@@ -710,7 +701,7 @@
       place-items: center;
       border: 1px solid rgba(255,255,255,.14);
       background:
-        radial-gradient(circle at 50% 44%, rgba(255,195,78,.24), transparent 26%),
+        radial-gradient(circle at 50% 36%, rgba(255,195,78,.26), transparent 28%),
         linear-gradient(135deg, rgba(255,255,255,.07), rgba(255,255,255,.02));
       overflow: hidden;
       box-shadow: inset 0 0 70px rgba(255,255,255,.04);
@@ -735,10 +726,11 @@
       transition: opacity .55s ease;
       pointer-events: none;
       filter: drop-shadow(0 0 24px rgba(255,195,78,.34));
+      transform: translateY(-42px);
     }
 
     body.three-ready .logo-model-canvas { opacity: 1; }
-    body.three-ready .pyramid-3d { opacity: 0; transform: scale(.9) rotateX(58deg) rotateZ(-45deg); }
+    body.three-ready .pyramid-3d { opacity: 0; transform: translateY(-44px) scale(.9) rotateX(58deg) rotateZ(-45deg); }
 
     .pyramid-3d {
       position: relative;
@@ -746,7 +738,7 @@
       width: 320px;
       height: 300px;
       transform-style: preserve-3d;
-      transform: rotateX(58deg) rotateZ(-45deg);
+      transform: translateY(-44px) rotateX(58deg) rotateZ(-45deg);
       animation: pyramidFloat 5s ease-in-out infinite;
     }
 
@@ -759,13 +751,14 @@
       background: linear-gradient(135deg, #1a1409, var(--gold-2), var(--gold), #2a1c07);
       box-shadow: inset 0 0 26px rgba(255,255,255,.22), 0 0 24px rgba(255,195,78,.18);
       clip-path: polygon(50% 0, 100% 100%, 0 100%);
+      transform-origin: 50% 68%;
     }
 
-    .tier:nth-child(1) { width: 330px; height: 230px; transform: translate(-50%, -36%) translateZ(0); opacity: .82; }
-    .tier:nth-child(2) { width: 260px; height: 188px; transform: translate(-50%, -43%) translateZ(46px); }
-    .tier:nth-child(3) { width: 200px; height: 146px; transform: translate(-50%, -50%) translateZ(88px); }
-    .tier:nth-child(4) { width: 142px; height: 102px; transform: translate(-50%, -58%) translateZ(126px); }
-    .tier:nth-child(5) { width: 82px; height: 62px; transform: translate(-50%, -70%) translateZ(160px); }
+    .tier:nth-child(1) { width: 330px; height: 230px; transform: translate(-50%, -36%) translateZ(0) rotateZ(0deg); opacity: .82; animation: tierRotor1 10s linear infinite; }
+    .tier:nth-child(2) { width: 260px; height: 188px; transform: translate(-50%, -43%) translateZ(46px) rotateZ(0deg); animation: tierRotor2 8.5s linear infinite; }
+    .tier:nth-child(3) { width: 200px; height: 146px; transform: translate(-50%, -50%) translateZ(88px) rotateZ(0deg); animation: tierRotor3 7s linear infinite; }
+    .tier:nth-child(4) { width: 142px; height: 102px; transform: translate(-50%, -58%) translateZ(126px) rotateZ(0deg); animation: tierRotor4 6s linear infinite; }
+    .tier:nth-child(5) { width: 82px; height: 62px; transform: translate(-50%, -70%) translateZ(160px) rotateZ(0deg); animation: tierRotor5 5s linear infinite; }
 
     .jet {
       position: absolute;
@@ -789,6 +782,11 @@
       0%, 100% { translate: 0 0; }
       50% { translate: 0 -16px; }
     }
+    @keyframes tierRotor1 { to { transform: translate(-50%, -36%) translateZ(0) rotateZ(360deg); } }
+    @keyframes tierRotor2 { to { transform: translate(-50%, -43%) translateZ(46px) rotateZ(-360deg); } }
+    @keyframes tierRotor3 { to { transform: translate(-50%, -50%) translateZ(88px) rotateZ(360deg); } }
+    @keyframes tierRotor4 { to { transform: translate(-50%, -58%) translateZ(126px) rotateZ(-360deg); } }
+    @keyframes tierRotor5 { to { transform: translate(-50%, -70%) translateZ(160px) rotateZ(360deg); } }
     @keyframes jetPulse { from { transform: translateX(-50%) scaleY(.92); } to { transform: translateX(-50%) scaleY(1.12); } }
     @keyframes quake { 0%,100%{translate:0 0;} 25%{translate:6px -2px;} 50%{translate:-5px 3px;} 75%{translate:4px 4px;} }
 
@@ -893,7 +891,7 @@
     .member-card__media {
       position: relative;
       z-index: 1;
-      height: clamp(360px, 34vw, 500px);
+      height: clamp(390px, 36vw, 540px);
       display: grid;
       place-items: center;
       overflow: hidden;
@@ -918,9 +916,9 @@
       height: 100%;
       object-fit: contain;
       object-position: center;
-      padding: clamp(10px, 2vw, 24px);
+      padding: clamp(16px, 2.2vw, 30px);
       filter: saturate(1.18) contrast(1.07) drop-shadow(0 0 18px rgba(255,42,163,.18));
-      transform: translateZ(18px) scale(.985);
+      transform: translateZ(18px) scale(.96);
     }
 
     .member-card__body {
@@ -1096,7 +1094,7 @@
       height: 100%;
       object-fit: contain;
       object-position: center;
-      padding: 10px;
+      padding: 16px;
       background: radial-gradient(circle at 50% 50%, rgba(255,195,78,.12), rgba(0,0,0,.42));
     }
 
@@ -1119,7 +1117,8 @@
       border: 1px solid rgba(255,255,255,.16);
       background:
         linear-gradient(135deg, rgba(255,255,255,.08), rgba(255,255,255,.025)),
-        url("assets/monumental-systems-mark.webp") center / cover no-repeat;
+        url("assets/monumental-systems-mark.webp") center / contain no-repeat;
+      background-color: rgba(5,2,11,.72);
       position: relative;
       overflow: hidden;
       min-height: 420px;
@@ -1159,11 +1158,11 @@
 
     .join-card {
       content-visibility: auto;
-      contain-intrinsic-size: 1120px 620px;
-      max-width: 1120px;
+      contain-intrinsic-size: 1240px 660px;
+      width: min(1240px, calc(100vw - 72px));
       margin: 0 auto;
       display: grid;
-      grid-template-columns: .9fr 1.1fr;
+      grid-template-columns: minmax(420px, .92fr) minmax(0, 1.08fr);
       gap: 0;
       border: 1px solid rgba(255,255,255,.18);
       background: rgba(255,255,255,.04);
@@ -1172,11 +1171,11 @@
     }
 
     .join-card__art {
-      min-height: 520px;
+      min-height: 560px;
       background:
-        linear-gradient(180deg, transparent 48%, rgba(5,2,11,.78)),
+        linear-gradient(180deg, transparent 50%, rgba(5,2,11,.72)),
         radial-gradient(circle at 50% 44%, rgba(255,42,163,.18), transparent 24rem),
-        url("assets/monumental-fusion.webp") center / contain no-repeat;
+        url("assets/monumental-fusion.webp") center / 90% auto no-repeat;
       background-color: rgba(0,0,0,.4);
       position: relative;
     }
@@ -1186,26 +1185,48 @@
       display: none;
     }
 
+    .join-card__form {
+      min-width: 0;
+      padding: clamp(34px, 5vw, 66px);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+      overflow: visible;
+    }
+
+    .join-card__form .kicker {
+      margin-bottom: 12px;
+    }
+
     .join-card__form h2 {
       margin: 0 0 12px;
       font-family: var(--font-display);
-      font-size: clamp(3rem, 7vw, 6.6rem);
-      line-height: .84;
-      letter-spacing: -.05em;
+      font-size: clamp(2.9rem, 4.85vw, 5.1rem);
+      line-height: .88;
+      letter-spacing: -.045em;
       text-transform: uppercase;
+      max-width: 680px;
     }
 
     .join-card__form p {
       color: rgba(255,249,222,.8);
       line-height: 1.6;
-      max-width: 560px;
+      max-width: 620px;
     }
 
     .signup {
       display: grid;
-      grid-template-columns: 1fr auto;
+      grid-template-columns: minmax(0, 1fr) max-content;
       gap: 10px;
+      width: 100%;
+      max-width: 680px;
       margin: 26px 0 18px;
+    }
+
+    .signup .btn {
+      min-width: 190px;
+      white-space: nowrap;
     }
 
     .signup input {
@@ -1292,12 +1313,15 @@
       .hero,
       .system-grid,
       .join-card { grid-template-columns: 1fr; }
+      .join-card { width: min(720px, calc(100vw - 36px)); }
       .poster-wrap { min-height: auto; }
       .poster-card { width: min(620px, 92vw); }
       .features { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .gallery { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .nav__links { display: none; }
-      .join-card__art { min-height: 420px; }
+      .join-card { max-width: min(740px, calc(100vw - 36px)); }
+      .join-card__art { min-height: 420px; background-size: min(88%, 520px) auto; }
+      .join-card__form { padding: clamp(28px, 7vw, 56px); }
     }
 
     @media (max-width: 650px) {
@@ -1309,10 +1333,14 @@
       .sound { font-size: .6rem; padding: 9px 10px; }
       .brand small { display: none; }
       .signup { grid-template-columns: 1fr; }
+      .signup .btn { width: 100%; min-width: 0; }
+      .join-card { max-width: min(560px, calc(100vw - 24px)); }
+      .join-card__form h2 { font-size: clamp(2.9rem, 14vw, 4.9rem); }
       .footer { flex-direction: column; align-items: flex-start; }
       .member-card { min-height: auto; }
-      .member-card__media { height: min(78vw, 420px); }
-      .pyramid-3d { transform: scale(.72) rotateX(58deg) rotateZ(-45deg); }
+      .member-card__media { height: min(82vw, 460px); }
+      .pyramid-3d { transform: translateY(-32px) scale(.72) rotateX(58deg) rotateZ(-45deg); }
+      .logo-model-canvas { transform: translateY(-42px); }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -1343,7 +1371,21 @@
   <div class="page">
     <nav class="nav" aria-label="Primary navigation">
       <a class="brand" href="#top" aria-label="LICK home">
-        <span class="brand__mark" aria-hidden="true"><span></span></span>
+        <span class="brand__mark" aria-hidden="true">
+          <svg viewBox="0 0 64 64" focusable="false" role="img">
+            <defs>
+              <linearGradient id="lickBrandGold" x1="10" y1="10" x2="54" y2="54" gradientUnits="userSpaceOnUse">
+                <stop offset="0" stop-color="#fff6ad" />
+                <stop offset="0.46" stop-color="#ffc34e" />
+                <stop offset="1" stop-color="#7b4a14" />
+              </linearGradient>
+            </defs>
+            <polygon fill="url(#lickBrandGold)" points="28 8 38 8 44 16 22 16" />
+            <polygon fill="url(#lickBrandGold)" points="18 24 50 24 55 31 13 31" />
+            <polygon fill="url(#lickBrandGold)" points="10 39 58 39 63 47 5 47" />
+            <polygon fill="url(#lickBrandGold)" points="22 54 43 54 39 60 25 60" />
+          </svg>
+        </span>
         <span><strong>LICK</strong><small>Monumental Systems</small></span>
       </a>
       <div class="nav__links">
@@ -1538,9 +1580,9 @@
             <div class="kicker">Join the Voltage List</div>
             <h2>Become part of the System</h2>
             <p>Drop an email to receive fictional tour alerts, fake backstage codes, and entirely real vibes from LICK and Monumental Systems.</p>
-            <form class="signup" id="signupForm">
+            <form class="signup" id="signupForm" novalidate>
               <label class="sr-only" for="email" style="position:absolute;left:-9999px">Email address</label>
-              <input id="email" type="email" placeholder="your@email.com" autocomplete="email" required />
+              <input id="email" type="email" placeholder="your@email.com" autocomplete="email" />
               <button class="btn btn--gold" type="submit"><span>Submit to Fate</span></button>
             </form>
             <p class="fineprint">Front-end demo only. No emails are stored. The doom is purely aesthetic.</p>
@@ -1869,15 +1911,22 @@
         if (!audio.ctx) {
           audio.ctx = new (window.AudioContext || window.webkitAudioContext)();
           audio.master = audio.ctx.createGain();
-          audio.master.gain.value = .36;
-          audio.master.connect(audio.ctx.destination);
+          audio.master.gain.value = .32;
+          audio.compressor = audio.ctx.createDynamicsCompressor();
+          audio.compressor.threshold.value = -20;
+          audio.compressor.knee.value = 16;
+          audio.compressor.ratio.value = 7;
+          audio.compressor.attack.value = .003;
+          audio.compressor.release.value = .16;
+          audio.master.connect(audio.compressor);
+          audio.compressor.connect(audio.ctx.destination);
 
           audio.delay = audio.ctx.createDelay(.85);
-          audio.delay.delayTime.value = .185;
+          audio.delay.delayTime.value = .135;
           const feedback = audio.ctx.createGain();
-          feedback.gain.value = .22;
+          feedback.gain.value = .15;
           const wet = audio.ctx.createGain();
-          wet.gain.value = .12;
+          wet.gain.value = .065;
           audio.delay.connect(feedback);
           feedback.connect(audio.delay);
           audio.delay.connect(wet);
@@ -1897,7 +1946,36 @@
         source.connect(gain);
       }
 
-      function playNote(freq, dur = .1, type = 'sawtooth', volume = .04, when = 0) {
+      function routeGain(gain, wet = false, wetAmount = 1) {
+        gain.connect(audio.master || audio.ctx.destination);
+        if (wet && audio.delay) {
+          const send = audio.ctx.createGain();
+          send.gain.value = wetAmount;
+          gain.connect(send);
+          send.connect(audio.delay);
+        }
+      }
+
+      function playPickAttack(when = 0, volume = .018) {
+        if (!audio.ctx || !audio.noiseBuffer) return;
+        const now = audio.ctx.currentTime + when;
+        const src = audio.ctx.createBufferSource();
+        const gain = audio.ctx.createGain();
+        const filter = audio.ctx.createBiquadFilter();
+        src.buffer = audio.noiseBuffer;
+        filter.type = 'highpass';
+        filter.frequency.setValueAtTime(3600, now);
+        gain.gain.setValueAtTime(.0001, now);
+        gain.gain.exponentialRampToValueAtTime(volume, now + .004);
+        gain.gain.exponentialRampToValueAtTime(.0001, now + .035);
+        src.connect(filter);
+        filter.connect(gain);
+        routeGain(gain, false);
+        src.start(now);
+        src.stop(now + .045);
+      }
+
+      function playNote(freq, dur = .1, type = 'triangle', volume = .014, when = 0) {
         if (!audio.ctx) return;
         const now = audio.ctx.currentTime + when;
         const osc = audio.ctx.createOscillator();
@@ -1906,75 +1984,179 @@
         osc.type = type;
         osc.frequency.setValueAtTime(freq, now);
         filter.type = 'lowpass';
-        filter.frequency.setValueAtTime(2200, now);
-        filter.frequency.exponentialRampToValueAtTime(460, now + dur);
+        filter.frequency.setValueAtTime(920, now);
+        filter.frequency.exponentialRampToValueAtTime(360, now + Math.max(.06, dur));
         gain.gain.setValueAtTime(0.0001, now);
-        gain.gain.exponentialRampToValueAtTime(volume, now + .01);
+        gain.gain.exponentialRampToValueAtTime(volume, now + .015);
         gain.gain.exponentialRampToValueAtTime(0.0001, now + dur);
         osc.connect(filter);
         filter.connect(gain);
-        gain.connect(audio.master || audio.ctx.destination);
-        if (audio.delay) gain.connect(audio.delay);
+        routeGain(gain, true, .28);
         osc.start(now);
-        osc.stop(now + dur + .04);
+        osc.stop(now + dur + .05);
       }
 
-      function playGuitarPowerChord(root, dur = .18, volume = .052, when = 0) {
+      function playGuitarVoice(freqs, dur, volume, when, opts = {}) {
         if (!audio.ctx) return;
         const now = audio.ctx.currentTime + when;
-        const waveshaper = audio.ctx.createWaveShaper();
-        waveshaper.curve = makeDistortionCurve(95);
-        waveshaper.oversample = '2x';
-        const filter = audio.ctx.createBiquadFilter();
-        filter.type = 'bandpass';
-        filter.Q.value = 1.8;
-        filter.frequency.setValueAtTime(950, now);
-        filter.frequency.exponentialRampToValueAtTime(520, now + dur);
+        const shaper = audio.ctx.createWaveShaper();
+        shaper.curve = makeDistortionCurve(opts.drive || 150);
+        shaper.oversample = '2x';
+        const high = audio.ctx.createBiquadFilter();
+        high.type = 'highpass';
+        high.frequency.setValueAtTime(opts.highpass || 82, now);
+        const mid = audio.ctx.createBiquadFilter();
+        mid.type = 'peaking';
+        mid.frequency.setValueAtTime(opts.mid || 1120, now);
+        mid.Q.value = opts.midQ || 1.05;
+        mid.gain.value = opts.midGain || 5.5;
+        const low = audio.ctx.createBiquadFilter();
+        low.type = 'lowpass';
+        low.frequency.setValueAtTime(opts.lowpass || 3150, now);
+        if (opts.sweep) low.frequency.exponentialRampToValueAtTime(opts.sweep, now + dur);
         const gain = audio.ctx.createGain();
         gain.gain.setValueAtTime(.0001, now);
-        gain.gain.exponentialRampToValueAtTime(volume, now + .012);
+        gain.gain.exponentialRampToValueAtTime(volume, now + (opts.attack || .006));
+        gain.gain.exponentialRampToValueAtTime(Math.max(.0002, volume * (opts.sustain || .18)), now + Math.min(dur * .45, .11));
         gain.gain.exponentialRampToValueAtTime(.0001, now + dur);
-
-        [root, root * 1.5, root * 2].forEach((f, i) => {
+        freqs.forEach((f, i) => {
           const osc = audio.ctx.createOscillator();
-          osc.type = i === 1 ? 'square' : 'sawtooth';
+          osc.type = opts.square && i % 3 === 1 ? 'square' : 'sawtooth';
           osc.frequency.setValueAtTime(f, now);
-          osc.detune.setValueAtTime(i === 0 ? -8 : i === 1 ? 4 : 11, now);
-          osc.connect(waveshaper);
+          osc.detune.setValueAtTime((opts.detune || [-9, -3, 4, 9, 14])[i % 5], now);
+          if (opts.bend) osc.frequency.exponentialRampToValueAtTime(Math.max(32, f * opts.bend), now + dur * .92);
+          osc.connect(shaper);
           osc.start(now);
-          osc.stop(now + dur + .04);
+          osc.stop(now + dur + .05);
         });
+        shaper.connect(high);
+        high.connect(mid);
+        mid.connect(low);
+        low.connect(gain);
+        routeGain(gain, opts.wet || false, opts.wetAmount || .45);
+        if (opts.pick !== false) playPickAttack(when, volume * .42);
+      }
 
-        waveshaper.connect(filter);
-        filter.connect(gain);
-        gain.connect(audio.master || audio.ctx.destination);
-        if (audio.delay) gain.connect(audio.delay);
+      function playGuitarPowerChord(root, dur = .22, volume = .058, when = 0) {
+        playGuitarVoice([root * .997, root * 1.003, root * 1.5, root * 2.0], dur, volume, when, {
+          drive: 175,
+          lowpass: 3300,
+          highpass: 72,
+          mid: 1180,
+          midGain: 6.5,
+          sustain: .24,
+          wet: true,
+          wetAmount: .18,
+          square: true
+        });
+      }
+
+      function playPalmMute(root, when = 0, accent = false) {
+        const dur = accent ? .105 : .075;
+        playGuitarVoice([root * .996, root * 1.004, root * 1.5], dur, accent ? .05 : .032, when, {
+          drive: accent ? 210 : 170,
+          lowpass: accent ? 2100 : 1500,
+          highpass: 70,
+          mid: accent ? 900 : 760,
+          midGain: accent ? 8 : 5.5,
+          sustain: .08,
+          wet: accent,
+          wetAmount: .08,
+          square: true
+        });
+      }
+
+      function playLeadGuitar(freq, dur = .13, volume = .02, when = 0, bend = 1.0) {
+        playGuitarVoice([freq, freq * 1.004, freq * 1.5, freq * 2], dur, volume, when, {
+          drive: 225,
+          lowpass: 3050,
+          highpass: 118,
+          mid: 1180,
+          midGain: 7,
+          sustain: .3,
+          wet: true,
+          wetAmount: .34,
+          bend,
+          square: true
+        });
       }
 
       function playLeadRake(root, when = 0) {
-        [root, root * 1.25, root * 1.5, root * 2, root * 2.5].forEach((f, idx) => {
-          playNote(f, .07 + idx * .008, idx % 2 ? 'square' : 'sawtooth', .026, when + idx * .035);
+        const scale = [1, 1.189, 1.335, 1.5, 1.782];
+        scale.forEach((m, idx) => {
+          playLeadGuitar(root * m, .105 + idx * .012, .022, when + idx * .032, idx === scale.length - 1 ? 1.08 : 1.0);
+        });
+      }
+
+      function playTwinLead(root, step = 0, when = 0) {
+        const metal = [1, 1.125, 1.335, 1.5, 1.78, 2, 2.25, 2.67];
+        const a = root * 2 * metal[step % metal.length];
+        playLeadGuitar(a, .14, .018, when, 1.04);
+        playLeadGuitar(a * 1.5, .12, .012, when + .018, .98);
+        if (step % 4 === 0) playPinchHarmonic(root, when + .052);
+      }
+
+      function playSynthPad(root, when = 0) {
+        if (!audio.ctx) return;
+        const now = audio.ctx.currentTime + when;
+        const gain = audio.ctx.createGain();
+        const filter = audio.ctx.createBiquadFilter();
+        filter.type = 'lowpass';
+        filter.frequency.setValueAtTime(250, now);
+        filter.frequency.exponentialRampToValueAtTime(560, now + .55);
+        gain.gain.setValueAtTime(.0001, now);
+        gain.gain.exponentialRampToValueAtTime(.0045, now + .12);
+        gain.gain.exponentialRampToValueAtTime(.0001, now + 1.05);
+        [root / 2, root, root * 1.5].forEach((f, i) => {
+          const osc = audio.ctx.createOscillator();
+          osc.type = i === 1 ? 'triangle' : 'sawtooth';
+          osc.frequency.setValueAtTime(f, now);
+          osc.detune.setValueAtTime(i === 0 ? -10 : i === 1 ? 4 : 11, now);
+          osc.connect(filter);
+          osc.start(now);
+          osc.stop(now + 1.1);
+        });
+        filter.connect(gain);
+        routeGain(gain, true, .22);
+      }
+
+      function playDiveBomb(root, when = 0) {
+        playGuitarVoice([root * 5, root * 5.04], .52, .032, when, {
+          drive: 230,
+          lowpass: 4200,
+          highpass: 120,
+          mid: 1900,
+          midGain: 9,
+          bend: .16,
+          sustain: .38,
+          wet: true,
+          wetAmount: .7
         });
       }
 
       function playBass(root, when = 0) {
         if (!audio.ctx) return;
         const now = audio.ctx.currentTime + when;
-        const osc = audio.ctx.createOscillator();
-        const gain = audio.ctx.createGain();
+        const shaper = audio.ctx.createWaveShaper();
+        shaper.curve = makeDistortionCurve(45);
         const filter = audio.ctx.createBiquadFilter();
-        osc.type = 'triangle';
-        osc.frequency.setValueAtTime(root / 2, now);
         filter.type = 'lowpass';
-        filter.frequency.setValueAtTime(220, now);
+        filter.frequency.setValueAtTime(240, now);
+        const gain = audio.ctx.createGain();
         gain.gain.setValueAtTime(.0001, now);
-        gain.gain.exponentialRampToValueAtTime(.055, now + .01);
-        gain.gain.exponentialRampToValueAtTime(.0001, now + .2);
-        osc.connect(filter);
+        gain.gain.exponentialRampToValueAtTime(.07, now + .008);
+        gain.gain.exponentialRampToValueAtTime(.0001, now + .23);
+        [root / 2, root / 4].forEach((f, i) => {
+          const osc = audio.ctx.createOscillator();
+          osc.type = i ? 'triangle' : 'sawtooth';
+          osc.frequency.setValueAtTime(f, now);
+          osc.connect(shaper);
+          osc.start(now);
+          osc.stop(now + .26);
+        });
+        shaper.connect(filter);
         filter.connect(gain);
-        gain.connect(audio.master || audio.ctx.destination);
-        osc.start(now);
-        osc.stop(now + .24);
+        routeGain(gain, false);
       }
 
       function playKick(when = 0) {
@@ -1983,13 +2165,13 @@
         const osc = audio.ctx.createOscillator();
         const gain = audio.ctx.createGain();
         osc.type = 'sine';
-        osc.frequency.setValueAtTime(92, now);
-        osc.frequency.exponentialRampToValueAtTime(36, now + .13);
+        osc.frequency.setValueAtTime(102, now);
+        osc.frequency.exponentialRampToValueAtTime(35, now + .14);
         gain.gain.setValueAtTime(.0001, now);
-        gain.gain.exponentialRampToValueAtTime(.11, now + .006);
+        gain.gain.exponentialRampToValueAtTime(.13, now + .006);
         gain.gain.exponentialRampToValueAtTime(.0001, now + .18);
         osc.connect(gain);
-        gain.connect(audio.master || audio.ctx.destination);
+        routeGain(gain, false);
         osc.start(now);
         osc.stop(now + .2);
       }
@@ -2003,36 +2185,35 @@
         src.buffer = audio.noiseBuffer;
         if (kind === 'hat') {
           filter.type = 'highpass';
-          filter.frequency.value = 6500;
+          filter.frequency.value = 7200;
           gain.gain.setValueAtTime(.0001, now);
-          gain.gain.exponentialRampToValueAtTime(.028, now + .006);
-          gain.gain.exponentialRampToValueAtTime(.0001, now + .055);
+          gain.gain.exponentialRampToValueAtTime(.018, now + .004);
+          gain.gain.exponentialRampToValueAtTime(.0001, now + .045);
         } else if (kind === 'crash') {
           filter.type = 'highpass';
-          filter.frequency.value = 2800;
+          filter.frequency.value = 2500;
           gain.gain.setValueAtTime(.0001, now);
-          gain.gain.exponentialRampToValueAtTime(.065, now + .012);
-          gain.gain.exponentialRampToValueAtTime(.0001, now + .46);
+          gain.gain.exponentialRampToValueAtTime(.06, now + .012);
+          gain.gain.exponentialRampToValueAtTime(.0001, now + .42);
         } else {
           filter.type = 'bandpass';
-          filter.frequency.value = 1900;
-          filter.Q.value = .7;
+          filter.frequency.value = 1700;
+          filter.Q.value = .8;
           gain.gain.setValueAtTime(.0001, now);
-          gain.gain.exponentialRampToValueAtTime(.065, now + .008);
-          gain.gain.exponentialRampToValueAtTime(.0001, now + .15);
-          playNote(180, .1, 'triangle', .018, when);
+          gain.gain.exponentialRampToValueAtTime(.07, now + .006);
+          gain.gain.exponentialRampToValueAtTime(.0001, now + .14);
+          playNote(145, .09, 'triangle', .012, when);
         }
         src.connect(filter);
         filter.connect(gain);
-        gain.connect(audio.master || audio.ctx.destination);
-        if (kind !== 'hat' && audio.delay) gain.connect(audio.delay);
+        routeGain(gain, kind !== 'hat', kind === 'crash' ? .55 : .22);
         src.start(now);
-        src.stop(now + (kind === 'crash' ? .5 : .18));
+        src.stop(now + (kind === 'crash' ? .52 : .18));
       }
 
       function playPinchHarmonic(root, when = 0) {
-        playNote(root * 4, .08, 'square', .018, when);
-        playNote(root * 6, .06, 'sawtooth', .012, when + .012);
+        playLeadGuitar(root * 4.02, .08, .014, when, 1.18);
+        playLeadGuitar(root * 6.01, .055, .009, when + .018, .92);
       }
 
       function playTom(freq = 130, when = 0) {
@@ -2042,54 +2223,54 @@
         const gain = audio.ctx.createGain();
         osc.type = 'sine';
         osc.frequency.setValueAtTime(freq, now);
-        osc.frequency.exponentialRampToValueAtTime(freq * .52, now + .18);
+        osc.frequency.exponentialRampToValueAtTime(freq * .48, now + .17);
         gain.gain.setValueAtTime(.0001, now);
-        gain.gain.exponentialRampToValueAtTime(.052, now + .008);
+        gain.gain.exponentialRampToValueAtTime(.058, now + .006);
         gain.gain.exponentialRampToValueAtTime(.0001, now + .22);
         osc.connect(gain);
-        gain.connect(audio.master || audio.ctx.destination);
+        routeGain(gain, true, .15);
         osc.start(now);
         osc.stop(now + .25);
       }
 
       function playFutureSweep(when = 0) {
-        if (!audio.ctx) return;
+        if (!audio.ctx || !audio.noiseBuffer) return;
         const now = audio.ctx.currentTime + when;
-        const osc = audio.ctx.createOscillator();
-        const gain = audio.ctx.createGain();
+        const noise = audio.ctx.createBufferSource();
+        const noiseGain = audio.ctx.createGain();
         const filter = audio.ctx.createBiquadFilter();
-        osc.type = 'sawtooth';
-        osc.frequency.setValueAtTime(220, now);
-        osc.frequency.exponentialRampToValueAtTime(1760, now + .42);
+        noise.buffer = audio.noiseBuffer;
         filter.type = 'bandpass';
-        filter.Q.value = 6;
-        filter.frequency.setValueAtTime(640, now);
-        filter.frequency.exponentialRampToValueAtTime(4200, now + .42);
-        gain.gain.setValueAtTime(.0001, now);
-        gain.gain.exponentialRampToValueAtTime(.026, now + .03);
-        gain.gain.exponentialRampToValueAtTime(.0001, now + .46);
-        osc.connect(filter);
-        filter.connect(gain);
-        gain.connect(audio.master || audio.ctx.destination);
-        if (audio.delay) gain.connect(audio.delay);
-        osc.start(now);
-        osc.stop(now + .5);
+        filter.Q.value = 4.5;
+        filter.frequency.setValueAtTime(260, now);
+        filter.frequency.exponentialRampToValueAtTime(2600, now + .48);
+        noiseGain.gain.setValueAtTime(.0001, now);
+        noiseGain.gain.exponentialRampToValueAtTime(.018, now + .08);
+        noiseGain.gain.exponentialRampToValueAtTime(.0001, now + .52);
+        noise.connect(filter);
+        filter.connect(noiseGain);
+        routeGain(noiseGain, true, .5);
+        noise.start(now);
+        noise.stop(now + .56);
+        playGuitarVoice([110, 165, 220], .48, .018, when + .04, { drive: 160, lowpass: 1900, highpass: 85, mid: 900, wet: true, wetAmount: .35, sustain: .4, pick: false });
       }
 
       function playMegaLift() {
         if (!audio.enabled) return;
         ensureAudio();
         playFutureSweep(.02);
-        playLeadRake(246.94, .08);
-        [0, .07, .14, .21].forEach((offset, idx) => playTom(160 - idx * 18, offset));
+        playLeadRake(196, .08);
+        [0, .07, .14, .21].forEach((offset, idx) => playTom(170 - idx * 22, offset));
       }
 
       function playStab() {
         if (!audio.enabled) return;
         ensureAudio();
-        playGuitarPowerChord(82.41, .34, .065);
-        playGuitarPowerChord(123.47, .28, .048, .05);
-        playLeadRake(329.63, .02);
+        playGuitarPowerChord(82.41, .42, .072);
+        playPalmMute(82.41, .045, true);
+        playGuitarPowerChord(123.47, .32, .054, .08);
+        playPalmMute(73.42, .16, true);
+        playLeadRake(196, .03);
         playKick();
         playNoiseHit('crash', .02);
       }
@@ -2099,43 +2280,54 @@
         ensureAudio();
         const roots = [82.41, 98, 110, 123.47];
         const root = roots[Math.floor(rand(0, roots.length))];
-        playGuitarPowerChord(root, .14, .044);
-        playLeadRake(root * 2, .03);
+        playPalmMute(root, 0, true);
+        playPalmMute(root, .055, false);
+        playPalmMute(root, .11, false);
+        playGuitarPowerChord(root * 1.5, .16, .04, .16);
       }
 
       function scheduleBandStep(stepIndex, when) {
-        const progression = [82.41, 98, 110, 123.47, 110, 98, 73.42, 82.41];
-        const synthLine = [329.63, 392, 440, 493.88, 659.25, 587.33, 493.88, 440, 392, 329.63];
+        const progression = [82.41, 82.41, 98, 110, 123.47, 110, 98, 73.42];
         const step = stepIndex % 16;
         const bar = Math.floor(stepIndex / 16) % progression.length;
         const phrase = Math.floor(stepIndex / 64) % 4;
         const root = progression[bar];
-        const upbeat = phrase % 2 === 1;
+        const chugPatterns = [
+          [0, 2, 3, 6, 8, 10, 11, 14, 15],
+          [0, 1, 4, 6, 8, 9, 12, 14, 15],
+          [0, 2, 5, 7, 8, 10, 13, 15],
+          [0, 3, 4, 6, 8, 11, 12, 15]
+        ];
+        const chugs = chugPatterns[(bar + phrase) % chugPatterns.length];
+        const doubleKick = phrase > 1;
 
-        if ([0, 6, 8, 13].includes(step) || (upbeat && step === 15)) playKick(when);
+        if ([0, 6, 8, 13].includes(step) || (doubleKick && [3, 11, 15].includes(step))) playKick(when);
         if ([4, 12].includes(step)) playNoiseHit('snare', when);
-        if (step % 2 === 0 || (upbeat && [3, 7, 11, 15].includes(step))) playNoiseHit('hat', when);
+        if (step % 2 === 0) playNoiseHit('hat', when);
+        if (phrase === 3 && [7, 15].includes(step)) playNoiseHit('hat', when + .035);
 
-        if ([0, 3, 6, 8, 10, 11, 14].includes(step)) {
-          playGuitarPowerChord(root, step === 0 ? .22 : .105, step === 0 ? .045 : .032, when);
-        }
-        if (upbeat && [2, 5, 9, 15].includes(step)) playGuitarPowerChord(root * 1.5, .08, .022, when + .018);
-        if (step % 2 === 0) playBass(root, when);
+        if (chugs.includes(step)) playPalmMute(root, when, [0, 8, 15].includes(step));
+        if (phrase >= 2 && [1, 2, 9, 10].includes(step)) playPalmMute(root / 2, when + .008, false);
+        if ([0, 8].includes(step)) playGuitarPowerChord(root, step === 0 ? .34 : .22, step === 0 ? .066 : .05, when + .004);
+        if ([6, 10, 14].includes(step) && phrase >= 1) playGuitarPowerChord(root * 1.5, .12, .032, when + .018);
+        if ([3, 11].includes(step) && phrase >= 2) playPalmMute(root * .75, when + .014, true);
+        if (step === 12 && phrase >= 1) playGuitarPowerChord(root * .75, .16, .038, when + .006);
+        if (step % 2 === 0 || (phrase >= 2 && [3, 11].includes(step))) playBass(root, when);
 
-        if ([1, 5, 9, 13].includes(step)) playNote(synthLine[(stepIndex + bar + phrase) % synthLine.length], .075, step % 4 ? 'sawtooth' : 'square', .018, when);
-        if ([2, 10].includes(step) && phrase > 1) playNote(synthLine[(stepIndex + 3) % synthLine.length] * 1.5, .06, 'square', .012, when + .018);
-        if ([7, 15].includes(step)) playPinchHarmonic(root, when + .02);
+        if (step === 0 && bar % 2 === 0) playSynthPad(root, when + .012);
+        if (phrase >= 1 && [6, 14].includes(step)) playTwinLead(root, step + bar + phrase, when + .012);
+        if ([7, 15].includes(step) && phrase > 0) playPinchHarmonic(root, when + .02);
+        if (step === 15) playLeadRake(root * (phrase === 3 ? 2.0 : 1.65), when + .01);
 
-        if (bar === 7 && [12, 14, 15].includes(step)) playTom(150 - (15 - step) * 18, when);
+        if (bar === 7 && [12, 14, 15].includes(step)) playTom(155 - (15 - step) * 20, when);
         if (step === 0 && bar % 4 === 0) playFutureSweep(when + .02);
-        if (step === 8 && phrase === 3) playGuitarPowerChord(root * 2, .16, .026, when + .018);
-        if (step === 15) playLeadRake(root * (upbeat ? 2.2 : 2), when + .01);
+        if (step === 15 && [3, 7].includes(bar)) playDiveBomb(root, when + .02);
       }
 
       function audioScheduler() {
         if (!audio.enabled || !audio.ctx) return;
-        const secondsPerStep = 60 / 148 / 4;
-        const lookAhead = .22;
+        const secondsPerStep = 60 / 152 / 4;
+        const lookAhead = .2;
         while (audio.nextStepTime < audio.ctx.currentTime + lookAhead) {
           const when = Math.max(0, audio.nextStepTime - audio.ctx.currentTime);
           scheduleBandStep(audio.step, when);
@@ -2158,14 +2350,14 @@
         soundBtn.setAttribute('aria-pressed', String(audio.enabled));
         soundBtn.textContent = audio.enabled ? 'Power Off' : 'Power On';
         if (audio.enabled) {
-          showToast('Full future-rock band online: guitars, bass, drums, synth, doom.');
+          showToast('Future-metal engine online: twin guitars, chugs, bass, drums, synth haze, doom.');
           stopAudioLoop();
           audio.step = 0;
           audio.nextStepTime = audio.ctx.currentTime + .055;
           playStab();
           audioScheduler();
         } else {
-          showToast('Synth reactor sleeping. The pyramid still hums.');
+          showToast('Amplifier wall sleeping. The pyramid still hums.');
           stopAudioLoop();
         }
       }
@@ -2305,8 +2497,9 @@
           renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.15));
           renderer.outputColorSpace = THREE.SRGBColorSpace;
 
-          const camera = new THREE.PerspectiveCamera(35, 1, .1, 100);
-          camera.position.set(0, 1.7, 7.4);
+          const camera = new THREE.PerspectiveCamera(34, 1, .1, 100);
+          camera.position.set(0, 1.35, 8.05);
+          camera.lookAt(0, .42, 0);
           scene.add(new THREE.AmbientLight(0xffe2a6, .72));
           const key = new THREE.PointLight(0xffc24f, 4.5, 16);
           key.position.set(1.8, 3.2, 4.8);
@@ -2319,6 +2512,8 @@
           scene.add(cyan);
 
           const group = new THREE.Group();
+          const MODEL_BASE_Y = .66;
+          group.position.y = MODEL_BASE_Y;
           scene.add(group);
           const gold = new THREE.MeshStandardMaterial({
             color: 0xc98b2c,
@@ -2345,23 +2540,54 @@
             { bottom: 1.03, top: .66, h: .3 },
             { bottom: .54, top: .24, h: .25 }
           ];
+          const tierRotors = [];
+          const rotorAccentRings = [];
           let y = -1.12;
           tiers.forEach((tier, idx) => {
+            const rotor = new THREE.Group();
+            rotor.userData.speed = (idx % 2 ? -1 : 1) * (.014 + idx * .0032);
+            rotor.userData.home = idx * .025;
+            rotor.rotation.y = rotor.userData.home;
+            group.add(rotor);
+            tierRotors.push(rotor);
+
             const geo = new THREE.CylinderGeometry(tier.top, tier.bottom, tier.h, 4, 1, false);
             geo.rotateY(Math.PI / 4);
             const mesh = new THREE.Mesh(geo, idx % 2 ? darkGold : gold);
             mesh.position.y = y;
-            mesh.rotation.y = idx * .025;
-            group.add(mesh);
+            rotor.add(mesh);
+
             const edges = new THREE.LineSegments(new THREE.EdgesGeometry(geo), edgeMat);
             edges.position.copy(mesh.position);
-            edges.rotation.copy(mesh.rotation);
-            group.add(edges);
+            rotor.add(edges);
+
+            const blade = new THREE.Mesh(new THREE.BoxGeometry(tier.top * 1.06, .028, .055), slitMat);
+            blade.position.set(tier.top * .22, y + tier.h / 2 + .04, tier.top * .32);
+            blade.rotation.y = Math.PI / 4;
+            blade.material.opacity = .52;
+            rotor.add(blade);
+
             if (idx < tiers.length - 1) {
               const slit = new THREE.Mesh(new THREE.BoxGeometry(tier.top * 1.45, .026, tier.top * 1.45), slitMat);
               slit.position.y = y + tier.h / 2 + .08;
               slit.rotation.y = Math.PI / 4;
-              group.add(slit);
+              rotor.add(slit);
+
+              const ring = new THREE.Mesh(
+                new THREE.TorusGeometry(tier.top * 1.2, .012, 6, 3),
+                new THREE.MeshBasicMaterial({
+                  color: idx % 2 ? 0xff2aa3 : 0x18f2ff,
+                  transparent: true,
+                  opacity: .2,
+                  blending: THREE.AdditiveBlending,
+                  depthWrite: false
+                })
+              );
+              ring.position.y = y + tier.h / 2 + .1;
+              ring.rotation.x = Math.PI / 2;
+              ring.userData.speed = rotor.userData.speed * -1.75;
+              group.add(ring);
+              rotorAccentRings.push(ring);
             }
             y += tier.h + .23;
           });
@@ -2418,15 +2644,25 @@
           function animateModel(time) {
             if (!document.body.contains(logoCanvas)) return;
             if (modelVisible && time - lastModelFrame > 42) {
+              const dt = Math.min(2.8, (time - lastModelFrame) / 16.67 || 1);
               lastModelFrame = time;
+              const ignited = pyramidStage.classList.contains('ignited');
               currentX += (targetX - currentX) * .075;
               currentY += (targetY - currentY) * .075;
               group.rotation.x = currentX + Math.sin(time * .0012) * .03;
               group.rotation.y = currentY + Math.sin(time * .0007) * .085;
-              group.position.y = Math.sin(time * .0017) * .048;
+              group.position.y = MODEL_BASE_Y + Math.sin(time * .0017) * .048;
+              tierRotors.forEach((rotor, idx) => {
+                rotor.rotation.y += rotor.userData.speed * dt * (ignited ? 3.6 : 1);
+                rotor.scale.setScalar(1 + (ignited ? Math.sin(time * .009 + idx) * .015 : 0));
+              });
+              rotorAccentRings.forEach((ring, idx) => {
+                ring.rotation.z += ring.userData.speed * dt * (ignited ? 3.1 : 1);
+                ring.material.opacity = ignited ? .44 : .18 + Math.sin(time * .002 + idx) * .06;
+              });
               beam.scale.y = 1 + Math.sin(time * .009) * .15;
-              beam.material.opacity = pyramidStage.classList.contains('ignited') ? .72 : .28 + Math.sin(time * .004) * .1;
-              halo.rotation.z += .012;
+              beam.material.opacity = ignited ? .72 : .28 + Math.sin(time * .004) * .1;
+              halo.rotation.z += .012 * dt;
               renderer.render(scene, camera);
             }
             requestAnimationFrame(animateModel);
@@ -2440,6 +2676,11 @@
       signupForm.addEventListener('submit', e => {
         e.preventDefault();
         const email = document.getElementById('email').value.trim();
+        if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+          showToast('Voltage address needs an @ and a domain.');
+          playCardRiff();
+          return;
+        }
         makeParticle(width / 2, height - 120, 72, 1.9);
         spawnBolt(width * .25, height, width * .75, height * .22, { roughness: 46, steps: 9, life: 20, width: 3.2, hue: 48 });
         showToast(email ? 'Welcome to the System, ' + email + '.' : 'Welcome to the System.');
