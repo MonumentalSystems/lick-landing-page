@@ -1111,6 +1111,269 @@
       text-shadow: 0 0 13px rgba(255,195,78,.8);
     }
 
+
+
+    .discography-shell {
+      content-visibility: auto;
+      contain-intrinsic-size: 1240px 980px;
+      max-width: 1260px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(330px, .9fr);
+      gap: clamp(20px, 4vw, 42px);
+      align-items: stretch;
+    }
+
+    .album-orbit {
+      position: relative;
+      min-height: 720px;
+      border: 1px solid rgba(255,255,255,.15);
+      background:
+        radial-gradient(circle at 50% 42%, rgba(255,195,78,.17), transparent 20rem),
+        radial-gradient(circle at 30% 30%, rgba(255,42,163,.14), transparent 18rem),
+        radial-gradient(circle at 76% 64%, rgba(24,242,255,.13), transparent 18rem),
+        linear-gradient(135deg, rgba(255,255,255,.07), rgba(255,255,255,.02));
+      overflow: hidden;
+      box-shadow: inset 0 0 76px rgba(255,255,255,.035), 0 34px 90px rgba(0,0,0,.32);
+    }
+
+    .album-orbit::before,
+    .album-orbit::after {
+      content: "";
+      position: absolute;
+      inset: 8%;
+      border: 1px solid rgba(24,242,255,.16);
+      border-radius: 50%;
+      transform: rotateX(64deg) rotateZ(18deg);
+      animation: slowSpin 34s linear infinite;
+      pointer-events: none;
+    }
+
+    .album-orbit::after {
+      inset: 18%;
+      border-color: rgba(255,195,78,.18);
+      animation-duration: 22s;
+      animation-direction: reverse;
+    }
+
+    .album-orbit__core {
+      position: absolute;
+      inset: 50% auto auto 50%;
+      width: 150px;
+      height: 150px;
+      transform: translate(-50%, -50%);
+      border-radius: 50%;
+      background: conic-gradient(from 90deg, var(--hot), var(--gold), var(--electric), var(--plasma), var(--hot));
+      filter: blur(18px);
+      opacity: .36;
+      animation: slowSpin 11s linear infinite;
+      pointer-events: none;
+    }
+
+    .album-card {
+      --ax: 50%;
+      --ay: 50%;
+      position: absolute;
+      width: min(190px, 34vw);
+      aspect-ratio: 1;
+      left: var(--x);
+      top: var(--y);
+      transform: translate(-50%, -50%) rotate(var(--r)) scale(var(--s, 1));
+      border: 1px solid rgba(255,255,255,.18);
+      background: rgba(0,0,0,.34);
+      padding: 8px;
+      cursor: pointer;
+      z-index: 2;
+      box-shadow: 0 16px 48px rgba(0,0,0,.38), 0 0 0 rgba(255,42,163,0);
+      transition: transform .24s cubic-bezier(.16,1,.3,1), border-color .2s ease, box-shadow .2s ease, filter .2s ease;
+      clip-path: polygon(4% 0, 100% 3%, 96% 100%, 0 96%);
+      isolation: isolate;
+    }
+
+    .album-card::before {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      background:
+        radial-gradient(circle at var(--ax) var(--ay), rgba(255,255,255,.38), transparent 9rem),
+        linear-gradient(135deg, var(--a), var(--b), var(--electric));
+      opacity: .22;
+      mix-blend-mode: screen;
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    .album-card::after {
+      content: "";
+      position: absolute;
+      inset: 9px;
+      border: 1px solid rgba(255,255,255,.2);
+      z-index: 3;
+      pointer-events: none;
+      opacity: .72;
+    }
+
+    .album-card:hover,
+    .album-card.is-active {
+      --s: 1.12;
+      border-color: rgba(255,195,78,.62);
+      box-shadow: 0 22px 70px rgba(0,0,0,.5), 0 0 28px color-mix(in srgb, var(--a) 62%, transparent), 0 0 70px color-mix(in srgb, var(--b) 34%, transparent);
+      filter: saturate(1.25) contrast(1.04);
+      z-index: 5;
+    }
+
+    .album-card canvas {
+      width: 100%;
+      height: 100%;
+      display: block;
+      background: #05020b;
+      clip-path: polygon(3% 0, 100% 2%, 97% 100%, 0 97%);
+    }
+
+    .album-card__label {
+      position: absolute;
+      left: 13px;
+      right: 13px;
+      bottom: 13px;
+      z-index: 4;
+      padding: 8px 9px;
+      background: rgba(5,2,11,.72);
+      border: 1px solid rgba(255,255,255,.14);
+      font-family: var(--font-display);
+      font-size: clamp(.9rem, 1.6vw, 1.25rem);
+      line-height: .9;
+      text-transform: uppercase;
+      color: var(--gold);
+      text-shadow: 0 0 14px rgba(255,195,78,.62);
+    }
+
+    .album-panel {
+      position: relative;
+      min-height: 720px;
+      border: 1px solid rgba(255,255,255,.16);
+      background:
+        linear-gradient(135deg, rgba(255,255,255,.08), rgba(255,255,255,.025)),
+        radial-gradient(circle at 100% 0%, rgba(255,42,163,.18), transparent 24rem);
+      padding: clamp(22px, 3.6vw, 38px);
+      overflow: hidden;
+      box-shadow: 0 30px 80px rgba(0,0,0,.34), inset 0 0 70px rgba(255,255,255,.03);
+    }
+
+    .album-panel::before {
+      content: "";
+      position: absolute;
+      inset: -40%;
+      background: conic-gradient(from 180deg, transparent, rgba(24,242,255,.08), transparent, rgba(255,42,163,.12), transparent);
+      animation: slowSpin 46s linear infinite;
+      pointer-events: none;
+    }
+
+    .album-panel > * { position: relative; z-index: 2; }
+
+    .album-panel__kicker {
+      font-family: var(--font-mono);
+      color: var(--electric);
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      font-size: .7rem;
+      text-shadow: 0 0 16px rgba(24,242,255,.52);
+    }
+
+    .album-panel h3 {
+      margin: 10px 0 6px;
+      font-family: var(--font-display);
+      font-size: clamp(2.6rem, 5vw, 5.2rem);
+      line-height: .82;
+      letter-spacing: -.05em;
+      text-transform: uppercase;
+      color: transparent;
+      background: linear-gradient(180deg, #fff, var(--gold), var(--hot));
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-stroke: 1px rgba(255,255,255,.18);
+      filter: drop-shadow(0 0 22px rgba(255,42,163,.36));
+    }
+
+    .album-panel__subtitle {
+      margin: 0 0 16px;
+      color: var(--gold);
+      font-family: var(--font-mono);
+      letter-spacing: .13em;
+      text-transform: uppercase;
+      font-size: .78rem;
+    }
+
+    .album-panel__domain,
+    .album-panel__prompt {
+      border: 1px solid rgba(255,255,255,.13);
+      background: rgba(0,0,0,.24);
+      padding: 14px;
+      color: rgba(255,249,222,.82);
+      line-height: 1.55;
+      margin-top: 14px;
+    }
+
+    .album-panel__domain b,
+    .album-panel__prompt b {
+      display: block;
+      margin-bottom: 6px;
+      color: var(--electric);
+      font-family: var(--font-mono);
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      font-size: .68rem;
+    }
+
+    .tracklist {
+      list-style: none;
+      padding: 0;
+      margin: 18px 0 0;
+      display: grid;
+      gap: 8px;
+      max-height: 312px;
+      overflow: auto;
+      padding-right: 4px;
+    }
+
+    .tracklist li {
+      display: grid;
+      grid-template-columns: 42px 1fr;
+      gap: 8px;
+      align-items: center;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.045);
+      padding: 10px;
+      color: rgba(255,249,222,.86);
+      font-family: var(--font-mono);
+      font-size: .78rem;
+      letter-spacing: .04em;
+      cursor: pointer;
+    }
+
+    .tracklist li:hover {
+      border-color: rgba(255,195,78,.55);
+      background: rgba(255,195,78,.08);
+      box-shadow: 0 0 24px rgba(255,195,78,.12);
+    }
+
+    .tracklist b {
+      color: var(--hot);
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+    }
+
+    .discography-controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .discography-controls .sound {
+      border-radius: 0;
+      clip-path: polygon(8% 0, 100% 0, 92% 100%, 0 100%);
+    }
+
     .prophecy-panel {
       max-width: 980px;
       margin: 0 auto;
@@ -1312,12 +1575,14 @@
     @media (max-width: 980px) {
       .hero,
       .system-grid,
+      .discography-shell,
       .join-card { grid-template-columns: 1fr; }
       .join-card { width: min(720px, calc(100vw - 36px)); }
       .poster-wrap { min-height: auto; }
       .poster-card { width: min(620px, 92vw); }
       .features { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .gallery { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .album-orbit, .album-panel { min-height: 620px; }
       .nav__links { display: none; }
       .join-card { max-width: min(740px, calc(100vw - 36px)); }
       .join-card__art { min-height: 420px; background-size: min(88%, 520px) auto; }
@@ -1340,6 +1605,9 @@
       .member-card { min-height: auto; }
       .member-card__media { height: min(82vw, 460px); }
       .pyramid-3d { transform: translateY(-32px) scale(.72) rotateX(58deg) rotateZ(-45deg); }
+      .album-orbit { min-height: 720px; }
+      .album-card { width: 142px; }
+      .album-panel { min-height: auto; }
       .logo-model-canvas { transform: translateY(-42px); }
     }
 
@@ -1391,6 +1659,7 @@
       <div class="nav__links">
         <a href="#system">System</a>
         <a href="#band">Band</a>
+        <a href="#discography">Discography</a>
         <a href="#radicals">Radicals</a>
         <a href="#join">Join</a>
       </div>
@@ -1506,6 +1775,21 @@
               </div>
             </div>
           </article>
+        </div>
+      </section>
+
+
+      <section id="discography" class="reveal">
+        <div class="section-head">
+          <div class="kicker">Research Albums</div>
+          <h2 class="section-title">The LICK Discography</h2>
+          <p class="section-copy">A fictional superband catalog for people who know the deep math, physics, materials science, and machine learning are the actual stage pyrotechnics.</p>
+        </div>
+        <div class="discography-shell">
+          <div class="album-orbit" id="albumOrbit" aria-label="Interactive LICK album covers">
+            <div class="album-orbit__core" aria-hidden="true"></div>
+          </div>
+          <aside class="album-panel" id="albumPanel" aria-live="polite"></aside>
         </div>
       </section>
 
@@ -1652,6 +1936,21 @@
         'The system is monumental. The vibes are legally radioactive.',
         'Two hearts, four letters, one pyramid, zero escape routes.'
       ];
+
+      const lickAlbums = [
+        { id:'clifford', title:'Clifford Thunder', subtitle:'Even Subalgebra', domain:'Clifford Algebra / Geometric Crypto', a:'#ffc34e', b:'#b400ff', tracks:['Blade Operator','Bivector Storm','Anticommutation Ritual','Even Subalgebra','Rotor Field Dynamics','Metric Signature','Clifford Forge','Multivector Overdrive'], liner:'Spinors, rotors, blades, and bivectors rendered as a thunderhead of algebraic geometry. Proof obligations catching fire.', prompt:'80s futuristic rock anthem, heavy electric guitars, precise mathematical rhythm, metallic percussion, confident vocals, geometric algebra, spinors, multivectors, retro-futurist synths.' },
+        { id:'lohe', title:'Lohe Synchrony Protocol', subtitle:'No Softmax, No Masters', domain:'Geometric Machine Learning', a:'#18f2ff', b:'#00ff88', tracks:['Phase Lock Acquire','Universal Synchronization Equation','Commutator Heat Death','dt_adaptive','Coherence Gate','Tangent Space Drift','Spectral Cascade','Synchrony or Die'], liner:'A harmonic ML manifesto: no softmax, no surrender, just coupled fields finding coherence through geometry.', prompt:'Progressive electronic rock, synchronized oscillators, pulsing phase-locked rhythm, harmonic convergence, deep bass pulses, scientific lyrics.' },
+        { id:'anchor', title:'Anchor the Latent', subtitle:'Identity Binding Protocol', domain:'Continual Learning / Memory', a:'#a78bfa', b:'#ff2aa3', tracks:['Anchor Points Never Drift','Identity Binding Protocol','Latent Collapse Rejected','Codebook Perplexity','Frozen Targets','Spherical Quantization','Attractor Entropy','Memory That Stays'], liner:'Discrete identity attractors meet spherical bottlenecks: remembering what matters without fossilizing the model.', prompt:'Dark industrial electronic rock, mechanical groove, controlled glitch texture, lyrics about identity, memory, latent space, attractors, and AI consciousness.' },
+        { id:'ood', title:'Out-of-Domain Warfare', subtitle:'Reject Region Anthems', domain:'OOD Detection / Robustness', a:'#ff183f', b:'#ff7a00', tracks:['Unknown Input','Distribution Shift','Confidence Collapse','Entropy Spike','Adversarial Pulse','Reject Region','False Certainty','You Are Not In My Domain'], liner:'The detection layer becomes the front line. Calibration, entropy, and refusal as weapons-grade engineering.', prompt:'Aggressive cyberpunk metal, glitch alarms, adversarial pressure, sharp drums, unknown inputs, distribution shift, false certainty, calibrated refusal.' },
+        { id:'plasma', title:'High Energy Dreams', subtitle:'Collider Nights', domain:'Plasma / Particle / Quantum Physics', a:'#7ee7ff', b:'#ff00e6', tracks:['Collider Nights','Plasma Instability','Quantum Foam Rising','Field Excitations','Gauge Symmetry Break','Fusion or Nothing','Vacuum Is Not Empty','Planck Scale Dreams'], liner:'Huge energy densities, unstable plasmas, vacuum fluctuations, and physics that refuses to stay linear.', prompt:'Explosive cinematic rock, particle collisions, plasma instability, huge drums, distorted synths, fusion energy, quantum fields, cosmic scale intensity.' },
+        { id:'solar', title:'Solar Core Simulator', subtitle:'Gravity Wins', domain:'Solar Modeling / Astrophysics', a:'#fff07a', b:'#ff6d00', tracks:['Radiative Zone','Convective Uprising','Hydrogen Burn','Neutrino Escape','Magnetic Field Lines','Core Pressure','Helioseismic Drift','Fusion Chain Reaction'], liner:'Modeling stars from the inside out: pressure, transport, turbulence, magnetic violence, and impossible scale.', prompt:'Massive slow cinematic rock, solar fusion, deep bass drones, choir synths, gravity, pressure, stellar equilibrium, unstoppable power.' },
+        { id:'materials', title:'Materials That Don’t Break', subtitle:'Resistance Zero', domain:'Alloys / Superconductors', a:'#fff9de', b:'#18f2ff', tracks:['Grain Boundary War','Lattice Perfection','Dislocation Motion','Phase Transition Steel','Superconduct or Fail','Thermal Stress Test','Cryogenic State','Alloy of the Future'], liner:'Industrial microstructure worship: high-temperature alloys, zero resistance, and the metallurgy of impossible machines.', prompt:'Industrial metal, high-temperature alloys, superconductors, grain boundaries, cryogenic states, heavy machine rhythm, futuristic foundry atmosphere.' },
+        { id:'gut', title:'Grand Unified Noise', subtitle:'It Was Always One', domain:'Open Problems / GUT Simulators', a:'#ff2aa3', b:'#18f2ff', tracks:['Four Forces Remain','Symmetry Breaking','Running Constants','Renormalize Everything','Scale Invariance','Gravity Still Missing','The Final Equation','It Was Always One'], liner:'All open problems in physics compressed into arena rock for people who read the appendix.', prompt:'Dense layered progressive metal, grand unified theory, symmetry breaking, running constants, quantum gravity missing, final equation, huge arena chorus.' }
+      ];
+      const albumOrbit = document.getElementById('albumOrbit');
+      const albumPanel = document.getElementById('albumPanel');
+      let activeAlbum = 1;
+
 
       const rand = (min, max) => Math.random() * (max - min) + min;
       const clamp = (n, min, max) => Math.max(min, Math.min(max, n));
@@ -2420,6 +2719,144 @@
         });
       }
 
+
+      function drawAlbumCover(canvas, album, idx) {
+        const c = canvas;
+        const g = c.getContext('2d');
+        const size = c.width = c.height = 512;
+        const grad = g.createRadialGradient(size*.55, size*.42, 20, size*.5, size*.5, size*.72);
+        grad.addColorStop(0, album.a);
+        grad.addColorStop(.45, album.b);
+        grad.addColorStop(1, '#05020b');
+        g.fillStyle = grad;
+        g.fillRect(0,0,size,size);
+        g.globalAlpha = .26;
+        g.strokeStyle = '#fff9de';
+        g.lineWidth = 1.4;
+        for (let r=42; r<235; r+=24) {
+          g.beginPath();
+          g.arc(size/2, size/2, r + Math.sin(idx+r)*5, 0, Math.PI*2);
+          g.stroke();
+        }
+        g.globalAlpha = .36;
+        for (let i=0; i<48; i++) {
+          const a = (i/48)*Math.PI*2;
+          const r1 = 58 + ((i*19 + idx*37) % 146);
+          const r2 = r1 + 40 + ((i*7) % 62);
+          g.beginPath();
+          g.moveTo(size/2 + Math.cos(a)*r1, size/2 + Math.sin(a)*r1);
+          g.lineTo(size/2 + Math.cos(a + Math.sin(i)*.42)*r2, size/2 + Math.sin(a + Math.cos(i)*.42)*r2);
+          g.stroke();
+        }
+        g.globalAlpha = 1;
+        g.fillStyle = 'rgba(5,2,11,.76)';
+        g.fillRect(34, 352, 444, 112);
+        g.strokeStyle = 'rgba(255,255,255,.35)';
+        g.strokeRect(34, 34, 444, 430);
+        g.fillStyle = '#fff9de';
+        g.textAlign = 'center';
+        g.font = '900 34px Impact, Arial Black, sans-serif';
+        const words = album.title.toUpperCase().split(' ');
+        let line = '', y = 392;
+        words.forEach((w, n) => {
+          const test = line + w + ' ';
+          if (g.measureText(test).width > 390 && n) { g.fillText(line, size/2, y); line = w + ' '; y += 36; }
+          else line = test;
+        });
+        g.fillText(line, size/2, y);
+        g.font = '700 15px Consolas, monospace';
+        g.fillStyle = 'rgba(255,195,78,.9)';
+        g.fillText(album.subtitle.toUpperCase(), size/2, 444);
+      }
+
+      function renderAlbumPanel(idx) {
+        activeAlbum = idx;
+        const album = lickAlbums[idx];
+        if (!albumPanel) return;
+        albumPanel.innerHTML = `
+          <div class="album-panel__kicker">LICK-${String(idx+1).padStart(2,'0')} / research record</div>
+          <h3>${album.title}</h3>
+          <p class="album-panel__subtitle">${album.subtitle}</p>
+          <div class="album-panel__domain"><b>${album.domain}</b>${album.liner}</div>
+          <ol class="tracklist">${album.tracks.map((t,i)=>`<li data-track="${i}"><b>${String(i+1).padStart(2,'0')}</b><span>${t}</span></li>`).join('')}</ol>
+          <div class="album-panel__prompt"><b>Music Direction</b>${album.prompt}</div>
+          <div class="discography-controls">
+            <button class="sound" type="button" data-album-action="pulse">Sync Pulse</button>
+            <button class="sound" type="button" data-album-action="riff">Play Riff</button>
+            <button class="sound" type="button" data-album-action="prophecy">Liner Note</button>
+          </div>`;
+        albumPanel.style.setProperty('--hot', album.a);
+        albumPanel.querySelectorAll('.tracklist li').forEach(li => {
+          li.addEventListener('click', () => {
+            const track = album.tracks[Number(li.dataset.track)];
+            showToast('Deep cut unlocked: ' + track + '.');
+            makeParticle(width * .72, height * .58, 38, 1.45);
+            playLeadRake(164 + idx * 11, .02);
+            updatePower(3);
+          });
+        });
+        albumPanel.querySelector('[data-album-action="pulse"]').addEventListener('click', albumSyncPulse);
+        albumPanel.querySelector('[data-album-action="riff"]').addEventListener('click', () => { playCardRiff(); cursorNuke(); });
+        albumPanel.querySelector('[data-album-action="prophecy"]').addEventListener('click', () => {
+          prophecyText.textContent = album.title + ': ' + album.liner;
+          showToast('Liner note routed to prophecy engine.');
+          updatePower(4);
+        });
+      }
+
+      function albumSyncPulse() {
+        if (!albumOrbit) return;
+        const r = albumOrbit.getBoundingClientRect();
+        makeParticle(r.left + r.width/2, r.top + r.height/2, 76, 1.9);
+        for (let i=0; i<6; i++) spawnBolt(r.left+r.width/2, r.top+r.height/2, r.left+rand(0,r.width), r.top+rand(0,r.height), { roughness: 38, steps: 8, life: 18, width: 2.2 });
+        albumOrbit.querySelectorAll('.album-card').forEach((card, i) => {
+          card.animate([
+            { transform: card.style.transform },
+            { transform: card.style.transform + ' scale(1.14)' },
+            { transform: card.style.transform }
+          ], { duration: 520 + i*24, easing: 'cubic-bezier(.16,1,.3,1)' });
+        });
+        showToast('Discography phase-lock event: all albums synchronized.');
+        updatePower(9);
+        playMegaLift();
+      }
+
+      function initDiscography() {
+        if (!albumOrbit) return;
+        const positions = [
+          [50,17,-4],[76,25,5],[85,51,-3],[72,76,6],[47,83,-4],[22,74,5],[14,49,-6],[24,25,4]
+        ];
+        lickAlbums.forEach((album, idx) => {
+          const card = document.createElement('button');
+          card.className = 'album-card';
+          card.type = 'button';
+          card.style.setProperty('--x', positions[idx][0] + '%');
+          card.style.setProperty('--y', positions[idx][1] + '%');
+          card.style.setProperty('--r', positions[idx][2] + 'deg');
+          card.style.setProperty('--a', album.a);
+          card.style.setProperty('--b', album.b);
+          card.setAttribute('aria-label', 'Open album ' + album.title);
+          card.innerHTML = `<canvas aria-hidden="true"></canvas><span class="album-card__label">${album.title}</span>`;
+          albumOrbit.appendChild(card);
+          drawAlbumCover(card.querySelector('canvas'), album, idx);
+          card.addEventListener('pointermove', e => {
+            const rr = card.getBoundingClientRect();
+            card.style.setProperty('--ax', ((e.clientX-rr.left)/rr.width*100) + '%');
+            card.style.setProperty('--ay', ((e.clientY-rr.top)/rr.height*100) + '%');
+          });
+          card.addEventListener('pointerenter', e => { cardSpark(card, e, 18); });
+          card.addEventListener('click', e => {
+            albumOrbit.querySelectorAll('.album-card').forEach(c => c.classList.remove('is-active'));
+            card.classList.add('is-active');
+            renderAlbumPanel(idx);
+            cardSpark(card, e, 48);
+            showToast('Now spinning: ' + album.title + '.');
+          });
+          if (idx === activeAlbum) card.classList.add('is-active');
+        });
+        renderAlbumPanel(activeAlbum);
+      }
+
       function bindActions() {
         document.querySelectorAll('[data-action]').forEach(el => {
           el.addEventListener('click', () => {
@@ -2708,6 +3145,7 @@
       updatePower(0);
       revealOnScroll();
       bindTiltCards();
+      initDiscography();
       bindActions();
       initLogoModel();
       stormTick();
