@@ -959,6 +959,47 @@
       line-height: 1.55;
     }
 
+    .profile-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 16px 0 2px;
+    }
+
+    .profile-links a {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      border: 1px solid rgba(255,255,255,.18);
+      background: linear-gradient(135deg, rgba(255,255,255,.08), rgba(255,255,255,.025));
+      color: var(--ink);
+      padding: 9px 11px;
+      font-family: var(--font-mono);
+      font-size: .68rem;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      overflow: hidden;
+      transition: transform .16s ease, border-color .16s ease, box-shadow .16s ease;
+    }
+
+    .profile-links a::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, transparent, rgba(255,195,78,.24), transparent);
+      transform: translateX(-120%);
+      transition: transform .32s ease;
+    }
+
+    .profile-links a:hover {
+      transform: translateY(-2px);
+      border-color: rgba(255,195,78,.55);
+      box-shadow: var(--shadow-hot);
+    }
+
+    .profile-links a:hover::before { transform: translateX(120%); }
+
     .charge-row {
       display: grid;
       gap: 10px;
@@ -1802,6 +1843,63 @@
       .logo-model-canvas { transform: translateY(-42px); }
     }
 
+    @media (max-width: 760px) {
+      html, body {
+        width: 100%;
+        max-width: 100%;
+        overflow-x: clip;
+      }
+
+      .page, main, section, .hero, .system-grid, .band-grid, .features, .gallery, .discography-shell, .join-card, .footer {
+        max-width: 100%;
+        min-width: 0;
+      }
+
+      section {
+        padding-left: clamp(14px, 4vw, 22px);
+        padding-right: clamp(14px, 4vw, 22px);
+      }
+
+      .hero {
+        width: 100%;
+        overflow: hidden;
+        padding-left: clamp(14px, 4vw, 22px);
+        padding-right: clamp(14px, 4vw, 22px);
+      }
+
+      .section-title, .title, .member-card h3, .join-card__form h2 {
+        overflow-wrap: anywhere;
+      }
+
+      .poster-card, .poster-wrap, .pyramid-stage, .member-card, .feature, .sleeve, .prophecy-panel, .album-panel, .album-orbit {
+        width: 100%;
+        max-width: 100%;
+      }
+
+      .discography-shell {
+        overflow: hidden;
+      }
+
+      .album-orbit {
+        overflow: hidden;
+      }
+
+      .single-modal__inner {
+        width: min(94vw, 680px);
+        max-height: 88svh;
+        overflow: auto;
+      }
+
+      .join-card {
+        width: calc(100vw - 28px);
+      }
+
+      .profile-links a {
+        flex: 1 1 128px;
+        justify-content: center;
+      }
+    }
+
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after {
         animation-duration: .001ms !important;
@@ -1947,6 +2045,10 @@
               <h3>Lisa<br />Mega Watts</h3>
               <span class="role">Lead voltage / cyclone riffs</span>
               <p>She brings the wattage, the wild hair, and the “touch this and explode” guitar tone. Lisa is the lightning before the thunder realizes it has a job.</p>
+              <div class="profile-links" aria-label="Lisa Mega Watts profile links">
+                <a href="https://www.linkedin.com/in/lisamegawatts/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+                <a href="https://github.com/DavinciDreams" target="_blank" rel="noopener noreferrer">GitHub</a>
+              </div>
               <div class="charge-row">
                 <div class="charge"><span>Wattage</span><i style="--v: 98%"></i><b>98</b></div>
                 <div class="charge"><span>Chaos</span><i style="--v: 93%"></i><b>93</b></div>
@@ -1961,6 +2063,10 @@
               <h3>Dick<br />Safier</h3>
               <span class="role">Danger architect / shred command</span>
               <p>Equal parts mastermind and megaphone. Dick drives the System with chrome sunglasses, victory chords, and a refusal to let physics win.</p>
+              <div class="profile-links" aria-label="Dick Safier profile links">
+                <a href="https://www.linkedin.com/in/rjsafier/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+                <a href="https://github.com/rsafier" target="_blank" rel="noopener noreferrer">GitHub</a>
+              </div>
               <div class="charge-row">
                 <div class="charge"><span>Shred</span><i style="--v: 96%"></i><b>96</b></div>
                 <div class="charge"><span>Command</span><i style="--v: 91%"></i><b>91</b></div>
