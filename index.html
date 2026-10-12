@@ -310,6 +310,82 @@
       box-shadow: var(--shadow-hot);
     }
 
+    .sound-controls { display: flex; gap: 8px; flex-shrink: 0; }
+    .nav { flex-wrap: wrap; }
+    .sound-controls .sound { min-height: 44px; }
+    .release-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+      gap: 22px;
+      margin-bottom: 64px;
+    }
+    .release-card {
+      --release-accent: var(--gold);
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+      border: 1px solid var(--stroke);
+      background: var(--blackglass);
+      padding: 18px;
+    }
+    .release-cover {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      aspect-ratio: 1;
+      padding: 24px;
+      overflow: hidden;
+      border: 1px solid var(--release-accent);
+      background:
+        repeating-linear-gradient(135deg, transparent 0 28px, rgba(255,255,255,.05) 29px 30px),
+        radial-gradient(ellipse at bottom right, var(--release-accent), transparent 68%),
+        #10051b;
+    }
+    .release-cover::after {
+      content: '';
+      position: absolute;
+      width: 72%;
+      aspect-ratio: 1;
+      right: -28%;
+      top: -18%;
+      border: 2px solid var(--release-accent);
+      border-radius: 50%;
+      box-shadow: 0 0 32px var(--release-accent);
+    }
+    .release-cover span { font-family: var(--font-mono); font-size: .7rem; letter-spacing: .2em; }
+    .release-cover strong {
+      position: relative;
+      z-index: 1;
+      font-family: var(--font-display);
+      font-size: clamp(2.5rem, 4vw, 3.6rem);
+      line-height: .95;
+      text-transform: uppercase;
+      overflow-wrap: anywhere;
+      text-shadow: 0 2px 14px #000;
+    }
+    .release-card h3 { font-size: 1.35rem; margin: 20px 0 8px; }
+    .release-card p { color: var(--muted); line-height: 1.6; margin: 0 0 20px; }
+    .release-link {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      min-height: 48px;
+      margin-top: auto;
+      padding: 12px 14px;
+      border: 1px solid var(--release-accent);
+      font-weight: 700;
+    }
+    .release-link:hover { background: rgba(255,255,255,.1); }
+    .release-link span { font-size: .7rem; font-weight: 400; }
+    .catalog-heading { font-family: var(--font-display); font-size: 2rem; text-transform: uppercase; }
+    .single-controls { margin: 0 0 16px; }
+    .sound:focus-visible, .release-link:focus-visible {
+      outline: 3px solid var(--electric);
+      outline-offset: 4px;
+    }
+
     .hero {
       position: relative;
       min-height: calc(100svh - 74px);
@@ -1952,7 +2028,10 @@
         <a href="#radicals">Radicals</a>
         <a href="#join">Join</a>
       </div>
-      <button class="sound" id="soundBtn" type="button" aria-pressed="false">Power On</button>
+      <div class="sound-controls">
+        <button class="sound" id="soundBtn" type="button" aria-pressed="false">Power On</button>
+        <button class="sound" type="button" data-mute aria-pressed="false" aria-label="Mute all site audio">Mute</button>
+      </div>
     </nav>
 
     <main id="top">
@@ -2080,10 +2159,50 @@
 
       <section id="discography" class="reveal">
         <div class="section-head">
-          <div class="kicker">Research Albums</div>
+          <div class="kicker">The Records + The Videos</div>
           <h2 class="section-title">The LICK Discography</h2>
-          <p class="section-copy">A fictional superband catalog for people who know the deep math, physics, materials science, and machine learning are the actual stage pyrotechnics.</p>
+          <p class="section-copy">Science, mathematics, AI, and a little philosophical combat. Choose a record to listen on Suno, or step into the Agora for the music videos. Listening links open in a new tab and mute this site's soundtrack.</p>
         </div>
+        <div class="release-grid" aria-label="Albums and music videos">
+          <article class="release-card" style="--release-accent:#ffc34e">
+            <div class="release-cover" aria-hidden="true"><span>MONUMENTAL SYSTEMS / 01</span><strong>Science<br>Rap Battles<br>v1</strong><span>SCIENCE TAKES THE MIC</span></div>
+            <h3>Science Rap Battles v1</h3>
+            <p>The scientists take the stage. Listen to the complete playlist.</p>
+            <a class="release-link" href="https://suno.com/playlist/392f2c33-1592-4fd7-90eb-90cf510a5cc7" target="_blank" rel="noopener noreferrer" aria-label="Listen to Science Rap Battles v1 on Suno (opens in a new tab)">Listen on Suno <span>NEW TAB ↗</span></a>
+          </article>
+          <article class="release-card" style="--release-accent:#18f2ff">
+            <div class="release-cover" aria-hidden="true"><span>MONUMENTAL SYSTEMS / 02</span><strong>Solvay<br>Smackdown</strong><span>PHYSICS IN THE RING</span></div>
+            <h3>Solvay Smackdown</h3>
+            <p>Bring the physics. Bring the arguments. Enter the playlist.</p>
+            <a class="release-link" href="https://suno.com/playlist/7a516a68-2af9-4a55-9eb6-0bb4525a957e" target="_blank" rel="noopener noreferrer" aria-label="Listen to Solvay Smackdown on Suno (opens in a new tab)">Listen on Suno <span>NEW TAB ↗</span></a>
+          </article>
+          <article class="release-card" style="--release-accent:#a78bfa">
+            <div class="release-cover" aria-hidden="true"><span>MONUMENTAL SYSTEMS / 03</span><strong>Steve<br>Net</strong><span>ENTER THE NETWORK</span></div>
+            <h3>Steve Net</h3>
+            <p>Plug into Steve Net. The full playlist is waiting.</p>
+            <a class="release-link" href="https://suno.com/playlist/023e0ed6-de01-4aa6-9291-0a3134648f57" target="_blank" rel="noopener noreferrer" aria-label="Listen to Steve Net on Suno (opens in a new tab)">Listen on Suno <span>NEW TAB ↗</span></a>
+          </article>
+          <article class="release-card" style="--release-accent:#ff6d00">
+            <div class="release-cover" aria-hidden="true"><span>MONUMENTAL SYSTEMS / 04</span><strong>Mathematics</strong><span>TURN THE PROOF UP</span></div>
+            <h3>Mathematics</h3>
+            <p>Equations meet the amplifier. Explore the mathematics playlist.</p>
+            <a class="release-link" href="https://suno.com/playlist/979673a3-5199-4ec5-99bd-ab8e9999a363" target="_blank" rel="noopener noreferrer" aria-label="Listen to Mathematics on Suno (opens in a new tab)">Listen on Suno <span>NEW TAB ↗</span></a>
+          </article>
+          <article class="release-card" style="--release-accent:#00ff88">
+            <div class="release-cover" aria-hidden="true"><span>MONUMENTAL SYSTEMS / 05</span><strong>AI and<br>Friends</strong><span>MORE THAN MACHINES</span></div>
+            <h3>AI and Friends</h3>
+            <p>The intelligence is artificial. The friends bring the voltage.</p>
+            <a class="release-link" href="https://suno.com/playlist/f5e5f2de-4611-4086-a1f5-faee94f93988" target="_blank" rel="noopener noreferrer" aria-label="Listen to AI and Friends on Suno (opens in a new tab)">Listen on Suno <span>NEW TAB ↗</span></a>
+          </article>
+          <article class="release-card" style="--release-accent:#ff2aa3">
+            <div class="release-cover" aria-hidden="true"><span>MONUMENTAL SYSTEMS / VIDEO COLLECTION</span><strong>Agora<br>Smackdown</strong><span>THESEUS TO TURING</span></div>
+            <h3>Agora Smackdown</h3>
+            <p>Watch <em>Theseus to Turing</em>: 12 songs in order. Captain Theseus is the finished cut; the remaining videos are draft renders.</p>
+            <a class="release-link" href="https://claude.ai/artifact/RetkkXB83cxJRARMLNmnNh" target="_blank" rel="noopener noreferrer" aria-label="Watch Agora Smackdown music videos (opens in a new tab)">Watch the videos <span>NEW TAB ↗</span></a>
+          </article>
+        </div>
+        <h3 class="catalog-heading">The Research Concept Catalog</h3>
+        <p class="section-copy">Explore the fictional research records behind the LICK universe. For released music, choose an album above or play the featured singles.</p>
         <div class="discography-shell">
           <div class="album-orbit" id="albumOrbit" aria-label="Interactive LICK album covers">
             <div class="album-orbit__core" aria-hidden="true"></div>
@@ -2196,6 +2315,7 @@
       <button class="single-close" id="singleClose" type="button" aria-label="Close single player">×</button>
       <h2 class="single-title" id="singleTitle">NO SOFTMAX, NO MASTERS</h2>
       <p class="single-sub" id="singleSub">Lohe Synchrony Protocol</p>
+      <div class="single-controls"><button class="sound" type="button" data-mute aria-pressed="false" aria-label="Mute all site audio">Mute</button></div>
       <div class="single-stage">
         <div>
           <video class="single-video" id="singleVideo" controls playsinline preload="metadata"></video>
@@ -2229,6 +2349,21 @@
       const singleLyrics = document.getElementById('singleLyrics');
       const reactorAudio = document.getElementById('reactorAudio');
       const idleAudio = document.getElementById('idleAudio');
+      const muteButtons = document.querySelectorAll('[data-mute]');
+      let siteMuted = false;
+      try { siteMuted = localStorage.getItem('lick-site-muted') === 'true'; } catch (_) {}
+
+      function setSiteMuted(muted) {
+        siteMuted = muted;
+        document.querySelectorAll('audio, video').forEach(el => { el.muted = muted; });
+        if (audio.outputGain) audio.outputGain.gain.setValueAtTime(muted ? 0 : 1, audio.ctx.currentTime);
+        muteButtons.forEach(button => {
+          button.setAttribute('aria-pressed', String(muted));
+          button.setAttribute('aria-label', muted ? 'Unmute all site audio' : 'Mute all site audio');
+          button.textContent = muted ? 'Unmute' : 'Mute';
+        });
+        try { localStorage.setItem('lick-site-muted', String(muted)); } catch (_) {}
+      }
       const stormBtn = document.getElementById('stormBtn');
       const prophecyBtn = document.getElementById('prophecyBtn');
       const pyramidStage = document.getElementById('pyramidStage');
@@ -2623,7 +2758,7 @@
             analyser.fftSize = 128;
             analyser.smoothingTimeConstant = .76;
             source.connect(analyser);
-            analyser.connect(audio.ctx.destination);
+            analyser.connect(audio.outputGain);
             mediaSources.set(el, analyser);
           }
           currentAnalyser = mediaSources.get(el);
@@ -2890,7 +3025,10 @@
           audio.compressor.attack.value = .003;
           audio.compressor.release.value = .16;
           audio.master.connect(audio.compressor);
-          audio.compressor.connect(audio.ctx.destination);
+          audio.outputGain = audio.ctx.createGain();
+          audio.outputGain.gain.value = siteMuted ? 0 : 1;
+          audio.compressor.connect(audio.outputGain);
+          audio.outputGain.connect(audio.ctx.destination);
 
           audio.delay = audio.ctx.createDelay(.85);
           audio.delay.delayTime.value = .135;
@@ -3856,6 +3994,14 @@
       playDoomedBtn?.addEventListener('click', () => playTrack('doomed'));
       themeBtn.addEventListener('click', mutateTheme);
       soundBtn.addEventListener('click', toggleSound);
+      muteButtons.forEach(button => button.addEventListener('click', () => {
+        setSiteMuted(!siteMuted);
+        showToast(siteMuted ? 'All site audio muted.' : 'Site audio unmuted.');
+      }));
+      document.querySelectorAll('.release-link').forEach(link => {
+        link.addEventListener('click', () => setSiteMuted(true));
+        link.addEventListener('auxclick', e => { if (e.button === 1) setSiteMuted(true); });
+      });
       stormBtn.addEventListener('click', toggleStorm);
       prophecyBtn.addEventListener('click', spinProphecy);
       window.addEventListener('resize', resize);
@@ -3870,6 +4016,7 @@
         if (Math.random() > .82) spawnBolt(e.clientX, e.clientY, e.clientX + rand(-130, 130), e.clientY + rand(-115, 115), { life: 10, roughness: 20 });
       });
 
+      setSiteMuted(siteMuted);
       resize();
       updateProgress();
       updatePower(0);
