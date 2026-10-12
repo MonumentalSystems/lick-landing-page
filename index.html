@@ -376,11 +376,30 @@
       padding: 12px 14px;
       border: 1px solid var(--release-accent);
       font-weight: 700;
+      color: var(--ink);
+      background: transparent;
+      cursor: pointer;
+      text-align: left;
+      width: 100%;
     }
     .release-link:hover { background: rgba(255,255,255,.1); }
     .release-link span { font-size: .7rem; font-weight: 400; }
     .catalog-heading { font-family: var(--font-display); font-size: 2rem; text-transform: uppercase; }
     .single-controls { margin: 0 0 16px; }
+    .release-actions { display: grid; gap: 10px; margin-top: auto; }
+    .release-actions .release-link { margin-top: 0; }
+    .album-player { padding: clamp(18px, 3vw, 32px); margin-bottom: 64px; border: 1px solid var(--hot); background: var(--blackglass); scroll-margin-top: 100px; }
+    .album-player h3 { margin: 12px 0; font-family: var(--font-display); font-size: clamp(2rem, 5vw, 3.5rem); text-transform: uppercase; }
+    .album-player p { color: var(--muted); line-height: 1.6; }
+    .album-player audio { display: block; width: 100%; margin: 20px 0; }
+    .album-player__controls { display: flex; flex-wrap: wrap; gap: 10px; }
+    .album-player__controls button { min-height: 44px; }
+    .album-player__controls button:disabled { opacity: .45; cursor: default; }
+    .album-tracks { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); list-style: none; padding: 0; margin: 24px 0 0; gap: 8px; }
+    .album-tracks button { display: flex; align-items: center; gap: 14px; width: 100%; min-height: 48px; border: 1px solid var(--stroke); padding: 12px; text-align: left; color: var(--ink); background: rgba(255,255,255,.04); cursor: pointer; }
+    .album-tracks button span { color: var(--gold); font-family: var(--font-mono); }
+    .album-tracks button[aria-current="true"] { border-color: var(--electric); background: rgba(24,242,255,.12); }
+    .album-tracks button:focus-visible { outline: 3px solid var(--electric); outline-offset: 2px; }
     .sound:focus-visible, .release-link:focus-visible {
       outline: 3px solid var(--electric);
       outline-offset: 4px;
@@ -2161,7 +2180,7 @@
         <div class="section-head">
           <div class="kicker">The Records + The Videos</div>
           <h2 class="section-title">The LICK Discography</h2>
-          <p class="section-copy">Science, mathematics, AI, and a little philosophical combat. Choose a record to listen on Suno, or step into the Agora for the music videos. Listening links open in a new tab and mute this site's soundtrack.</p>
+          <p class="section-copy">Science, mathematics, AI, and a little philosophical combat. Listen to Agora Smackdown right here, choose a playlist on Suno, or watch the music videos. External listening links open in a new tab and mute this site's soundtrack.</p>
         </div>
         <div class="release-grid" aria-label="Albums and music videos">
           <article class="release-card" style="--release-accent:#ffc34e">
@@ -2198,8 +2217,24 @@
             <div class="release-cover" aria-hidden="true"><span>MONUMENTAL SYSTEMS / VIDEO COLLECTION</span><strong>Agora<br>Smackdown</strong><span>THESEUS TO TURING</span></div>
             <h3>Agora Smackdown</h3>
             <p>Watch <em>Theseus to Turing</em>: 12 songs in order. Captain Theseus is the finished cut; the remaining videos are draft renders.</p>
-            <a class="release-link" href="https://claude.ai/artifact/RetkkXB83cxJRARMLNmnNh" target="_blank" rel="noopener noreferrer" aria-label="Watch Agora Smackdown music videos (opens in a new tab)">Watch the videos <span>NEW TAB ↗</span></a>
+            <div class="release-actions">
+              <button class="release-link" id="playAgoraBtn" type="button" aria-controls="agoraPlayer">Play album <span>12 TRACKS ▶</span></button>
+              <a class="release-link" href="https://claude.ai/artifact/RetkkXB83cxJRARMLNmnNh" target="_blank" rel="noopener noreferrer" aria-label="Watch Agora Smackdown music videos (opens in a new tab)">Watch the videos <span>NEW TAB ↗</span></a>
+            </div>
           </article>
+        </div>
+        <div class="album-player" id="agoraPlayer" role="region" aria-labelledby="agoraTitle">
+          <div class="kicker">Agora Smackdown / 12 tracks</div>
+          <h3 id="agoraTitle">Theseus to Turing</h3>
+          <p>Choose a song to start. The album plays in order, with the background soundtrack paused while you listen.</p>
+          <p id="agoraNowPlaying" role="status" aria-live="polite">Ready to play.</p>
+          <audio id="albumAudio" controls preload="none" aria-label="Agora Smackdown album player"></audio>
+          <div class="album-player__controls">
+            <button class="sound" id="agoraPrevious" type="button" disabled>Previous track</button>
+            <button class="sound" id="agoraNext" type="button" disabled>Next track</button>
+            <button class="sound" id="agoraStop" type="button" disabled>Stop album</button>
+          </div>
+          <ol class="album-tracks" id="agoraTracks" aria-label="Agora Smackdown running order"></ol>
         </div>
         <h3 class="catalog-heading">The Research Concept Catalog</h3>
         <p class="section-copy">Explore the fictional research records behind the LICK universe. For released music, choose an album above or play the featured singles.</p>
@@ -2349,6 +2384,27 @@
       const singleLyrics = document.getElementById('singleLyrics');
       const reactorAudio = document.getElementById('reactorAudio');
       const idleAudio = document.getElementById('idleAudio');
+      const albumAudio = document.getElementById('albumAudio');
+      const agoraNowPlaying = document.getElementById('agoraNowPlaying');
+      const agoraPrevious = document.getElementById('agoraPrevious');
+      const agoraNext = document.getElementById('agoraNext');
+      const agoraStop = document.getElementById('agoraStop');
+      const agoraTracks = document.getElementById('agoraTracks');
+      const AGORA_TRACKS = [
+        { title: 'Captain Theseus', file: '01-captain-theseus.mp3' },
+        { title: 'The Agora Smackdown', file: '02-the-agora-smackdown.mp3' },
+        { title: 'Zeno of Elea', file: '03-zeno-of-elea.mp3' },
+        { title: 'The Flux Is Not To Be Tamed', file: '04-the-flux-is-not-to-be-tamed.mp3' },
+        { title: 'Alexander Polynomial', file: '05-alexander-polynomial.mp3' },
+        { title: 'Achilles and the Epsilon', file: '06-achilles-and-the-epsilon.mp3' },
+        { title: "Zeno's Arrow", file: '07-zenos-arrow.mp3' },
+        { title: 'Euler Installed Doors', file: '08-euler-installed-doors.mp3' },
+        { title: 'Why Should It?', file: '09-why-should-it.mp3' },
+        { title: "There's More Than One", file: '10-theres-more-than-one.mp3' },
+        { title: 'How Many Infinities?', file: '11-how-many-infinities.mp3' },
+        { title: 'Gödel Says No', file: '12-godel-says-no.mp3' }
+      ];
+      let activeAgoraTrack = -1;
       const muteButtons = document.querySelectorAll('[data-mute]');
       let siteMuted = false;
       try { siteMuted = localStorage.getItem('lick-site-muted') === 'true'; } catch (_) {}
@@ -2392,6 +2448,8 @@
       let toastTimer = null;
       let lastIgnite = 0;
       let activeMedia = null;
+      let playbackRequest = 0;
+      const exclusiveMediaActive = () => activeMedia === 'video' || activeMedia === 'album';
       let reactorWanted = false;
       let idleWanted = true;
       let ambientGestureArmed = false;
@@ -2844,7 +2902,7 @@
       }
 
       function fadeInIdle() {
-        if (!idleAudio || activeMedia === 'video' || reactorWanted) return;
+        if (!idleAudio || exclusiveMediaActive() || reactorWanted) return;
         stopGeneratedMusic();
         activeMedia = 'idle';
         body.classList.add('core-idle');
@@ -2852,6 +2910,7 @@
         idleAudio.loop = true;
         if (idleAudio.paused) idleAudio.volume = 0;
         idleAudio.play().then(() => {
+          if (exclusiveMediaActive() || reactorWanted) return;
           fadeElement(idleAudio, .24, 1200);
           startMediaEnergy(idleAudio);
         }).catch(() => {
@@ -2868,16 +2927,17 @@
       }
 
       function fadeInReactor() {
-        if (!reactorAudio || activeMedia === 'video' || !reactorWanted) return;
+        if (!reactorAudio || exclusiveMediaActive() || !reactorWanted) return;
         stopGeneratedMusic();
         stopIdle(() => {
-          if (activeMedia === 'video' || !reactorWanted) return;
+          if (exclusiveMediaActive() || !reactorWanted) return;
           activeMedia = 'reactor';
           body.classList.add('reactor-online');
           body.classList.remove('core-idle');
           reactorAudio.loop = true;
           if (reactorAudio.paused) reactorAudio.volume = 0;
           reactorAudio.play().then(() => {
+            if (exclusiveMediaActive() || !reactorWanted) return;
             fadeElement(reactorAudio, .58, 900);
             startMediaEnergy(reactorAudio);
           }).catch(() => showToast('Press Power On again to wake the reactor audio.'));
@@ -2886,14 +2946,14 @@
 
       function startIdle() {
         idleWanted = true;
-        if (activeMedia === 'video' || reactorWanted) return;
+        if (exclusiveMediaActive() || reactorWanted) return;
         fadeInIdle();
       }
 
       function startReactor() {
         reactorWanted = true;
         idleWanted = false;
-        if (activeMedia === 'video') return;
+        if (exclusiveMediaActive()) return;
         fadeInReactor();
       }
 
@@ -2941,8 +3001,15 @@
       function playTrack(key) {
         const track = TRACKS[key];
         if (!track || !singleModal) return;
+        const request = ++playbackRequest;
+        if (activeMedia === 'album') {
+          albumAudio.pause();
+          activeMedia = null;
+          agoraNowPlaying.textContent = 'Paused: ' + AGORA_TRACKS[activeAgoraTrack].title;
+        }
         stopGeneratedMusic();
         const launch = () => {
+          if (request !== playbackRequest) return;
           activeMedia = 'video';
           singleVideo.style.display = 'block';
           singleTitle.textContent = track.title;
@@ -2966,11 +3033,59 @@
 
       function closeTrackModal() {
         if (!singleModal) return;
+        playbackRequest++;
         clearTrackModeTimers();
         singleModal.classList.remove('show');
         singleModal.setAttribute('aria-hidden', 'true');
         stopTrackMedia();
         resumeAmbient();
+      }
+
+      function takeAlbumPlayback() {
+        stopGeneratedMusic();
+        clearTrackModeTimers();
+        stopTrackMedia();
+        singleModal.classList.remove('show');
+        singleModal.setAttribute('aria-hidden', 'true');
+        stopElement(idleAudio);
+        stopElement(reactorAudio);
+        activeMedia = 'album';
+        body.classList.remove('core-idle', 'reactor-online', 'track-chaos', 'track-inevitable');
+        stormMode = false;
+        stormBtn?.setAttribute('aria-pressed', 'false');
+        startMediaEnergy(albumAudio);
+      }
+
+      function playAgoraTrack(index) {
+        const track = AGORA_TRACKS[index];
+        if (!track) return;
+        const request = ++playbackRequest;
+        albumAudio.pause();
+        activeAgoraTrack = index;
+        albumAudio.src = 'assets/agora/' + track.file;
+        agoraNowPlaying.textContent = 'Now playing: ' + String(index + 1).padStart(2, '0') + ' / ' + track.title;
+        agoraPrevious.disabled = index === 0;
+        agoraNext.disabled = index === AGORA_TRACKS.length - 1;
+        agoraStop.disabled = false;
+        agoraTracks.querySelectorAll('button').forEach((button, i) => {
+          button.setAttribute('aria-current', String(i === index));
+        });
+        takeAlbumPlayback();
+        albumAudio.play().catch(() => {
+          if (request !== playbackRequest) return;
+          agoraNowPlaying.textContent = 'Ready: ' + track.title + '. Press play in the audio player.';
+        });
+      }
+
+      function stopAgoraPlayback(finished = false) {
+        playbackRequest++;
+        albumAudio.pause();
+        agoraNowPlaying.textContent = finished ? 'Album complete.' : 'Album stopped.';
+        agoraStop.disabled = true;
+        if (activeMedia === 'album') {
+          activeMedia = null;
+          resumeAmbient();
+        }
       }
 
       function stormTick() {
@@ -3931,10 +4046,11 @@
       function armAmbientGesture() {
         if (ambientGestureArmed) return;
         ambientGestureArmed = true;
-        if (!reactorWanted && activeMedia !== 'video') startIdle();
+        if (!reactorWanted && !exclusiveMediaActive()) startIdle();
       }
 
       singleVideo?.addEventListener('error', () => {
+        if (!singleModal.classList.contains('show')) return;
         singleVideo.style.display = 'none';
         singleAudio.style.display = 'block';
         activeMedia = 'video';
@@ -3998,9 +4114,43 @@
         setSiteMuted(!siteMuted);
         showToast(siteMuted ? 'All site audio muted.' : 'Site audio unmuted.');
       }));
-      document.querySelectorAll('.release-link').forEach(link => {
+      document.querySelectorAll('a.release-link').forEach(link => {
         link.addEventListener('click', () => setSiteMuted(true));
         link.addEventListener('auxclick', e => { if (e.button === 1) setSiteMuted(true); });
+      });
+      AGORA_TRACKS.forEach((track, index) => {
+        const item = document.createElement('li');
+        const button = document.createElement('button');
+        button.type = 'button';
+        const number = document.createElement('span');
+        number.textContent = String(index + 1).padStart(2, '0');
+        button.append(number, document.createTextNode(track.title));
+        button.addEventListener('click', () => playAgoraTrack(index));
+        item.appendChild(button);
+        agoraTracks.appendChild(item);
+      });
+      document.getElementById('playAgoraBtn').addEventListener('click', () => {
+        playAgoraTrack(0);
+        document.getElementById('agoraPlayer').scrollIntoView({ behavior: reducedMotion ? 'instant' : 'smooth' });
+      });
+      agoraPrevious.addEventListener('click', () => playAgoraTrack(activeAgoraTrack - 1));
+      agoraNext.addEventListener('click', () => playAgoraTrack(activeAgoraTrack + 1));
+      agoraStop.addEventListener('click', () => stopAgoraPlayback());
+      albumAudio.addEventListener('play', () => {
+        playbackRequest++;
+        takeAlbumPlayback();
+        agoraStop.disabled = false;
+        agoraNowPlaying.textContent = 'Now playing: ' + AGORA_TRACKS[activeAgoraTrack].title;
+      });
+      albumAudio.addEventListener('pause', () => {
+        if (activeMedia === 'album' && !albumAudio.ended) agoraNowPlaying.textContent = 'Paused: ' + AGORA_TRACKS[activeAgoraTrack].title;
+      });
+      albumAudio.addEventListener('ended', () => {
+        if (activeAgoraTrack + 1 < AGORA_TRACKS.length) playAgoraTrack(activeAgoraTrack + 1);
+        else stopAgoraPlayback(true);
+      });
+      albumAudio.addEventListener('error', () => {
+        agoraNowPlaying.textContent = 'This track could not load. Choose another track or try again.';
       });
       stormBtn.addEventListener('click', toggleStorm);
       prophecyBtn.addEventListener('click', spinProphecy);
