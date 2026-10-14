@@ -310,6 +310,104 @@
       box-shadow: var(--shadow-hot);
     }
 
+    .sound-controls { display: flex; gap: 8px; flex-shrink: 0; }
+    .nav { flex-wrap: wrap; }
+    .sound-controls .sound { min-height: 44px; }
+    .release-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+      gap: 22px;
+      margin-bottom: 64px;
+    }
+    .release-card {
+      --release-accent: var(--gold);
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+      border: 1px solid var(--stroke);
+      background: var(--blackglass);
+      padding: 18px;
+    }
+    .release-cover {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      aspect-ratio: 1;
+      padding: 24px;
+      overflow: hidden;
+      border: 1px solid var(--release-accent);
+      background:
+        repeating-linear-gradient(135deg, transparent 0 28px, rgba(255,255,255,.05) 29px 30px),
+        radial-gradient(ellipse at bottom right, var(--release-accent), transparent 68%),
+        #10051b;
+    }
+    .release-cover::after {
+      content: '';
+      position: absolute;
+      width: 72%;
+      aspect-ratio: 1;
+      right: -28%;
+      top: -18%;
+      border: 2px solid var(--release-accent);
+      border-radius: 50%;
+      box-shadow: 0 0 32px var(--release-accent);
+    }
+    .release-cover span { font-family: var(--font-mono); font-size: .7rem; letter-spacing: .2em; }
+    .release-cover--art { display: block; padding: 0; background: #05020b; }
+    .release-cover--art::after { content: none; }
+    .release-cover--art img { display: block; width: 100%; height: 100%; object-fit: cover; }
+    .release-cover strong {
+      position: relative;
+      z-index: 1;
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 4vw, 3.6rem);
+      line-height: .95;
+      text-transform: uppercase;
+      overflow-wrap: anywhere;
+      text-shadow: 0 2px 14px #000;
+    }
+    .release-card h3 { font-size: 1.35rem; margin: 20px 0 8px; }
+    .release-card p { color: var(--muted); line-height: 1.6; margin: 0 0 20px; }
+    .release-link {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      min-height: 48px;
+      margin-top: auto;
+      padding: 12px 14px;
+      border: 1px solid var(--release-accent);
+      font-weight: 700;
+      color: var(--ink);
+      background: transparent;
+      cursor: pointer;
+      text-align: left;
+      width: 100%;
+    }
+    .release-link:hover { background: rgba(255,255,255,.1); }
+    .release-link span { font-size: .7rem; font-weight: 400; }
+    .catalog-heading { font-family: var(--font-display); font-size: 2rem; text-transform: uppercase; }
+    .single-controls { margin: 0 0 16px; }
+    .release-actions { display: grid; gap: 10px; margin-top: auto; }
+    .release-actions .release-link { margin-top: 0; }
+    .album-player { padding: clamp(18px, 3vw, 32px); margin-bottom: 64px; border: 1px solid var(--hot); background: var(--blackglass); scroll-margin-top: 100px; }
+    .album-player h3 { margin: 12px 0; font-family: var(--font-display); font-size: clamp(2rem, 5vw, 3.5rem); text-transform: uppercase; }
+    .album-player p { color: var(--muted); line-height: 1.6; }
+    .album-player audio { display: block; width: 100%; margin: 20px 0; }
+    .album-player__controls { display: flex; flex-wrap: wrap; gap: 10px; }
+    .album-player__controls button { min-height: 44px; }
+    .album-player__controls button:disabled { opacity: .45; cursor: default; }
+    .album-tracks { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); list-style: none; padding: 0; margin: 24px 0 0; gap: 8px; }
+    .album-tracks button { display: flex; align-items: center; gap: 14px; width: 100%; min-height: 48px; border: 1px solid var(--stroke); padding: 12px; text-align: left; color: var(--ink); background: rgba(255,255,255,.04); cursor: pointer; }
+    .album-tracks button span { color: var(--gold); font-family: var(--font-mono); }
+    .album-tracks button[aria-current="true"] { border-color: var(--electric); background: rgba(24,242,255,.12); }
+    .album-tracks button:focus-visible { outline: 3px solid var(--electric); outline-offset: 2px; }
+    .sound:focus-visible, .release-link:focus-visible {
+      outline: 3px solid var(--electric);
+      outline-offset: 4px;
+    }
+
     .hero {
       position: relative;
       min-height: calc(100svh - 74px);
@@ -1952,7 +2050,10 @@
         <a href="#radicals">Radicals</a>
         <a href="#join">Join</a>
       </div>
-      <button class="sound" id="soundBtn" type="button" aria-pressed="false">Power On</button>
+      <div class="sound-controls">
+        <button class="sound" id="soundBtn" type="button" aria-pressed="false">Power On</button>
+        <button class="sound" type="button" data-mute aria-pressed="false" aria-label="Mute all site audio">Mute</button>
+      </div>
     </nav>
 
     <main id="top">
@@ -2080,10 +2181,72 @@
 
       <section id="discography" class="reveal">
         <div class="section-head">
-          <div class="kicker">Research Albums</div>
+          <div class="kicker">The Records + The Videos</div>
           <h2 class="section-title">The LICK Discography</h2>
-          <p class="section-copy">A fictional superband catalog for people who know the deep math, physics, materials science, and machine learning are the actual stage pyrotechnics.</p>
+          <p class="section-copy">Science, mathematics, AI, and a little philosophical combat. Listen to Agora Smackdown right here, choose a playlist on Suno, or watch the music videos. External listening links open in a new tab and mute this site's soundtrack.</p>
         </div>
+        <div class="release-grid" aria-label="Albums and music videos">
+          <article class="release-card" style="--release-accent:#ffc34e">
+            <div class="release-cover release-cover--art" aria-hidden="true"><img src="assets/covers/science-rap-battles-v1.webp" alt="" width="1254" height="1254" loading="lazy" decoding="async"></div>
+            <h3>Science Rap Battles v1</h3>
+            <p>The scientists take the stage. Listen to the complete playlist.</p>
+            <a class="release-link" href="https://suno.com/playlist/392f2c33-1592-4fd7-90eb-90cf510a5cc7" target="_blank" rel="noopener noreferrer" aria-label="Listen to Science Rap Battles v1 on Suno (opens in a new tab)">Listen on Suno <span>NEW TAB ↗</span></a>
+          </article>
+          <article class="release-card" style="--release-accent:#18f2ff">
+            <div class="release-cover release-cover--art" aria-hidden="true"><img src="assets/covers/solvay-smackdown.webp" alt="" width="1254" height="1254" loading="lazy" decoding="async"></div>
+            <h3>Solvay Smackdown</h3>
+            <p>Bring the physics. Bring the arguments. Enter the playlist.</p>
+            <a class="release-link" href="https://suno.com/playlist/7a516a68-2af9-4a55-9eb6-0bb4525a957e" target="_blank" rel="noopener noreferrer" aria-label="Listen to Solvay Smackdown on Suno (opens in a new tab)">Listen on Suno <span>NEW TAB ↗</span></a>
+          </article>
+          <article class="release-card" style="--release-accent:#a78bfa">
+            <div class="release-cover release-cover--art" aria-hidden="true"><img src="assets/covers/steve-net.webp" alt="" width="1254" height="1254" loading="lazy" decoding="async"></div>
+            <h3>Steve Net</h3>
+            <p>Plug into Steve Net. The full playlist is waiting.</p>
+            <a class="release-link" href="https://suno.com/playlist/023e0ed6-de01-4aa6-9291-0a3134648f57" target="_blank" rel="noopener noreferrer" aria-label="Listen to Steve Net on Suno (opens in a new tab)">Listen on Suno <span>NEW TAB ↗</span></a>
+          </article>
+          <article class="release-card" style="--release-accent:#ff6d00">
+            <div class="release-cover release-cover--art" aria-hidden="true"><img src="assets/covers/mathematics.webp" alt="" width="1254" height="1254" loading="lazy" decoding="async"></div>
+            <h3>Mathematics</h3>
+            <p>Equations meet the amplifier. Explore the mathematics playlist.</p>
+            <a class="release-link" href="https://suno.com/playlist/979673a3-5199-4ec5-99bd-ab8e9999a363" target="_blank" rel="noopener noreferrer" aria-label="Listen to Mathematics on Suno (opens in a new tab)">Listen on Suno <span>NEW TAB ↗</span></a>
+          </article>
+          <article class="release-card" style="--release-accent:#00ff88">
+            <div class="release-cover release-cover--art" aria-hidden="true"><img src="assets/covers/ai-and-friends.webp" alt="" width="1254" height="1254" loading="lazy" decoding="async"></div>
+            <h3>AI and Friends</h3>
+            <p>The intelligence is artificial. The friends bring the voltage.</p>
+            <a class="release-link" href="https://suno.com/playlist/f5e5f2de-4611-4086-a1f5-faee94f93988" target="_blank" rel="noopener noreferrer" aria-label="Listen to AI and Friends on Suno (opens in a new tab)">Listen on Suno <span>NEW TAB ↗</span></a>
+          </article>
+          <article class="release-card" style="--release-accent:#ff2aa3">
+            <div class="release-cover release-cover--art" aria-hidden="true"><img src="assets/covers/agora-smackdown.webp" alt="" width="1254" height="1254" loading="lazy" decoding="async"></div>
+            <h3>Agora Smackdown</h3>
+            <p>Watch <em>Theseus to Turing</em>: 12 songs in order. Captain Theseus is the finished cut; the remaining videos are draft renders.</p>
+            <div class="release-actions">
+              <button class="release-link" id="playAgoraBtn" type="button" aria-controls="agoraPlayer">Play album <span>12 TRACKS ▶</span></button>
+              <a class="release-link" href="https://claude.ai/artifact/RetkkXB83cxJRARMLNmnNh" target="_blank" rel="noopener noreferrer" aria-label="Watch Agora Smackdown music videos (opens in a new tab)">Watch the videos <span>NEW TAB ↗</span></a>
+            </div>
+          </article>
+          <article class="release-card" style="--release-accent:#e59ab8">
+            <div class="release-cover release-cover--art" aria-hidden="true"><img src="assets/covers/what-i-do.webp" alt="" width="1254" height="1254" loading="lazy" decoding="async"></div>
+            <h3>What I Do</h3>
+            <p>Fourteen tracks of code, curiosity, and the daily life of a polymath.</p>
+            <a class="release-link" href="https://suno.com/playlist/2647c86d-9e35-4cd0-a612-0378e5529613" target="_blank" rel="noopener noreferrer" aria-label="Listen to What I Do on Suno (opens in a new tab)">Listen on Suno <span>NEW TAB ↗</span></a>
+          </article>
+        </div>
+        <div class="album-player" id="agoraPlayer" role="region" aria-labelledby="agoraTitle">
+          <div class="kicker">Agora Smackdown / 12 tracks</div>
+          <h3 id="agoraTitle">Theseus to Turing</h3>
+          <p>Choose a song to start. The album plays in order, with the background soundtrack paused while you listen.</p>
+          <p id="agoraNowPlaying" role="status" aria-live="polite">Ready to play.</p>
+          <audio id="albumAudio" controls preload="none" aria-label="Agora Smackdown album player"></audio>
+          <div class="album-player__controls">
+            <button class="sound" id="agoraPrevious" type="button" disabled>Previous track</button>
+            <button class="sound" id="agoraNext" type="button" disabled>Next track</button>
+            <button class="sound" id="agoraStop" type="button" disabled>Stop album</button>
+          </div>
+          <ol class="album-tracks" id="agoraTracks" aria-label="Agora Smackdown running order"></ol>
+        </div>
+        <h3 class="catalog-heading">The Research Concept Catalog</h3>
+        <p class="section-copy">Explore the fictional research records behind the LICK universe. For released music, choose an album above or play the featured singles.</p>
         <div class="discography-shell">
           <div class="album-orbit" id="albumOrbit" aria-label="Interactive LICK album covers">
             <div class="album-orbit__core" aria-hidden="true"></div>
@@ -2196,6 +2359,7 @@
       <button class="single-close" id="singleClose" type="button" aria-label="Close single player">×</button>
       <h2 class="single-title" id="singleTitle">NO SOFTMAX, NO MASTERS</h2>
       <p class="single-sub" id="singleSub">Lohe Synchrony Protocol</p>
+      <div class="single-controls"><button class="sound" type="button" data-mute aria-pressed="false" aria-label="Mute all site audio">Mute</button></div>
       <div class="single-stage">
         <div>
           <video class="single-video" id="singleVideo" controls playsinline preload="metadata"></video>
@@ -2229,6 +2393,42 @@
       const singleLyrics = document.getElementById('singleLyrics');
       const reactorAudio = document.getElementById('reactorAudio');
       const idleAudio = document.getElementById('idleAudio');
+      const albumAudio = document.getElementById('albumAudio');
+      const agoraNowPlaying = document.getElementById('agoraNowPlaying');
+      const agoraPrevious = document.getElementById('agoraPrevious');
+      const agoraNext = document.getElementById('agoraNext');
+      const agoraStop = document.getElementById('agoraStop');
+      const agoraTracks = document.getElementById('agoraTracks');
+      const AGORA_TRACKS = [
+        { title: 'Captain Theseus', file: '01-captain-theseus.mp3' },
+        { title: 'The Agora Smackdown', file: '02-the-agora-smackdown.mp3' },
+        { title: 'Zeno of Elea', file: '03-zeno-of-elea.mp3' },
+        { title: 'The Flux Is Not To Be Tamed', file: '04-the-flux-is-not-to-be-tamed.mp3' },
+        { title: 'Alexander Polynomial', file: '05-alexander-polynomial.mp3' },
+        { title: 'Achilles and the Epsilon', file: '06-achilles-and-the-epsilon.mp3' },
+        { title: "Zeno's Arrow", file: '07-zenos-arrow.mp3' },
+        { title: 'Euler Installed Doors', file: '08-euler-installed-doors.mp3' },
+        { title: 'Why Should It?', file: '09-why-should-it.mp3' },
+        { title: "There's More Than One", file: '10-theres-more-than-one.mp3' },
+        { title: 'How Many Infinities?', file: '11-how-many-infinities.mp3' },
+        { title: 'Gödel Says No', file: '12-godel-says-no.mp3' }
+      ];
+      let activeAgoraTrack = -1;
+      const muteButtons = document.querySelectorAll('[data-mute]');
+      let siteMuted = false;
+      try { siteMuted = localStorage.getItem('lick-site-muted') === 'true'; } catch (_) {}
+
+      function setSiteMuted(muted) {
+        siteMuted = muted;
+        document.querySelectorAll('audio, video').forEach(el => { el.muted = muted; });
+        if (audio.outputGain) audio.outputGain.gain.setValueAtTime(muted ? 0 : 1, audio.ctx.currentTime);
+        muteButtons.forEach(button => {
+          button.setAttribute('aria-pressed', String(muted));
+          button.setAttribute('aria-label', muted ? 'Unmute all site audio' : 'Mute all site audio');
+          button.textContent = muted ? 'Unmute' : 'Mute';
+        });
+        try { localStorage.setItem('lick-site-muted', String(muted)); } catch (_) {}
+      }
       const stormBtn = document.getElementById('stormBtn');
       const prophecyBtn = document.getElementById('prophecyBtn');
       const pyramidStage = document.getElementById('pyramidStage');
@@ -2257,6 +2457,8 @@
       let toastTimer = null;
       let lastIgnite = 0;
       let activeMedia = null;
+      let playbackRequest = 0;
+      const exclusiveMediaActive = () => activeMedia === 'video' || activeMedia === 'album';
       let reactorWanted = false;
       let idleWanted = true;
       let ambientGestureArmed = false;
@@ -2623,7 +2825,7 @@
             analyser.fftSize = 128;
             analyser.smoothingTimeConstant = .76;
             source.connect(analyser);
-            analyser.connect(audio.ctx.destination);
+            analyser.connect(audio.outputGain);
             mediaSources.set(el, analyser);
           }
           currentAnalyser = mediaSources.get(el);
@@ -2709,7 +2911,7 @@
       }
 
       function fadeInIdle() {
-        if (!idleAudio || activeMedia === 'video' || reactorWanted) return;
+        if (!idleAudio || exclusiveMediaActive() || reactorWanted) return;
         stopGeneratedMusic();
         activeMedia = 'idle';
         body.classList.add('core-idle');
@@ -2717,6 +2919,7 @@
         idleAudio.loop = true;
         if (idleAudio.paused) idleAudio.volume = 0;
         idleAudio.play().then(() => {
+          if (exclusiveMediaActive() || reactorWanted) return;
           fadeElement(idleAudio, .24, 1200);
           startMediaEnergy(idleAudio);
         }).catch(() => {
@@ -2733,16 +2936,17 @@
       }
 
       function fadeInReactor() {
-        if (!reactorAudio || activeMedia === 'video' || !reactorWanted) return;
+        if (!reactorAudio || exclusiveMediaActive() || !reactorWanted) return;
         stopGeneratedMusic();
         stopIdle(() => {
-          if (activeMedia === 'video' || !reactorWanted) return;
+          if (exclusiveMediaActive() || !reactorWanted) return;
           activeMedia = 'reactor';
           body.classList.add('reactor-online');
           body.classList.remove('core-idle');
           reactorAudio.loop = true;
           if (reactorAudio.paused) reactorAudio.volume = 0;
           reactorAudio.play().then(() => {
+            if (exclusiveMediaActive() || !reactorWanted) return;
             fadeElement(reactorAudio, .58, 900);
             startMediaEnergy(reactorAudio);
           }).catch(() => showToast('Press Power On again to wake the reactor audio.'));
@@ -2751,14 +2955,14 @@
 
       function startIdle() {
         idleWanted = true;
-        if (activeMedia === 'video' || reactorWanted) return;
+        if (exclusiveMediaActive() || reactorWanted) return;
         fadeInIdle();
       }
 
       function startReactor() {
         reactorWanted = true;
         idleWanted = false;
-        if (activeMedia === 'video') return;
+        if (exclusiveMediaActive()) return;
         fadeInReactor();
       }
 
@@ -2806,8 +3010,15 @@
       function playTrack(key) {
         const track = TRACKS[key];
         if (!track || !singleModal) return;
+        const request = ++playbackRequest;
+        if (activeMedia === 'album') {
+          albumAudio.pause();
+          activeMedia = null;
+          agoraNowPlaying.textContent = 'Paused: ' + AGORA_TRACKS[activeAgoraTrack].title;
+        }
         stopGeneratedMusic();
         const launch = () => {
+          if (request !== playbackRequest) return;
           activeMedia = 'video';
           singleVideo.style.display = 'block';
           singleTitle.textContent = track.title;
@@ -2831,11 +3042,59 @@
 
       function closeTrackModal() {
         if (!singleModal) return;
+        playbackRequest++;
         clearTrackModeTimers();
         singleModal.classList.remove('show');
         singleModal.setAttribute('aria-hidden', 'true');
         stopTrackMedia();
         resumeAmbient();
+      }
+
+      function takeAlbumPlayback() {
+        stopGeneratedMusic();
+        clearTrackModeTimers();
+        stopTrackMedia();
+        singleModal.classList.remove('show');
+        singleModal.setAttribute('aria-hidden', 'true');
+        stopElement(idleAudio);
+        stopElement(reactorAudio);
+        activeMedia = 'album';
+        body.classList.remove('core-idle', 'reactor-online', 'track-chaos', 'track-inevitable');
+        stormMode = false;
+        stormBtn?.setAttribute('aria-pressed', 'false');
+        startMediaEnergy(albumAudio);
+      }
+
+      function playAgoraTrack(index) {
+        const track = AGORA_TRACKS[index];
+        if (!track) return;
+        const request = ++playbackRequest;
+        albumAudio.pause();
+        activeAgoraTrack = index;
+        albumAudio.src = 'assets/agora/' + track.file;
+        agoraNowPlaying.textContent = 'Now playing: ' + String(index + 1).padStart(2, '0') + ' / ' + track.title;
+        agoraPrevious.disabled = index === 0;
+        agoraNext.disabled = index === AGORA_TRACKS.length - 1;
+        agoraStop.disabled = false;
+        agoraTracks.querySelectorAll('button').forEach((button, i) => {
+          button.setAttribute('aria-current', String(i === index));
+        });
+        takeAlbumPlayback();
+        albumAudio.play().catch(() => {
+          if (request !== playbackRequest) return;
+          agoraNowPlaying.textContent = 'Ready: ' + track.title + '. Press play in the audio player.';
+        });
+      }
+
+      function stopAgoraPlayback(finished = false) {
+        playbackRequest++;
+        albumAudio.pause();
+        agoraNowPlaying.textContent = finished ? 'Album complete.' : 'Album stopped.';
+        agoraStop.disabled = true;
+        if (activeMedia === 'album') {
+          activeMedia = null;
+          resumeAmbient();
+        }
       }
 
       function stormTick() {
@@ -2890,7 +3149,10 @@
           audio.compressor.attack.value = .003;
           audio.compressor.release.value = .16;
           audio.master.connect(audio.compressor);
-          audio.compressor.connect(audio.ctx.destination);
+          audio.outputGain = audio.ctx.createGain();
+          audio.outputGain.gain.value = siteMuted ? 0 : 1;
+          audio.compressor.connect(audio.outputGain);
+          audio.outputGain.connect(audio.ctx.destination);
 
           audio.delay = audio.ctx.createDelay(.85);
           audio.delay.delayTime.value = .135;
@@ -3793,10 +4055,11 @@
       function armAmbientGesture() {
         if (ambientGestureArmed) return;
         ambientGestureArmed = true;
-        if (!reactorWanted && activeMedia !== 'video') startIdle();
+        if (!reactorWanted && !exclusiveMediaActive()) startIdle();
       }
 
       singleVideo?.addEventListener('error', () => {
+        if (!singleModal.classList.contains('show')) return;
         singleVideo.style.display = 'none';
         singleAudio.style.display = 'block';
         activeMedia = 'video';
@@ -3856,6 +4119,48 @@
       playDoomedBtn?.addEventListener('click', () => playTrack('doomed'));
       themeBtn.addEventListener('click', mutateTheme);
       soundBtn.addEventListener('click', toggleSound);
+      muteButtons.forEach(button => button.addEventListener('click', () => {
+        setSiteMuted(!siteMuted);
+        showToast(siteMuted ? 'All site audio muted.' : 'Site audio unmuted.');
+      }));
+      document.querySelectorAll('a.release-link').forEach(link => {
+        link.addEventListener('click', () => setSiteMuted(true));
+        link.addEventListener('auxclick', e => { if (e.button === 1) setSiteMuted(true); });
+      });
+      AGORA_TRACKS.forEach((track, index) => {
+        const item = document.createElement('li');
+        const button = document.createElement('button');
+        button.type = 'button';
+        const number = document.createElement('span');
+        number.textContent = String(index + 1).padStart(2, '0');
+        button.append(number, document.createTextNode(track.title));
+        button.addEventListener('click', () => playAgoraTrack(index));
+        item.appendChild(button);
+        agoraTracks.appendChild(item);
+      });
+      document.getElementById('playAgoraBtn').addEventListener('click', () => {
+        playAgoraTrack(0);
+        document.getElementById('agoraPlayer').scrollIntoView({ behavior: reducedMotion ? 'instant' : 'smooth' });
+      });
+      agoraPrevious.addEventListener('click', () => playAgoraTrack(activeAgoraTrack - 1));
+      agoraNext.addEventListener('click', () => playAgoraTrack(activeAgoraTrack + 1));
+      agoraStop.addEventListener('click', () => stopAgoraPlayback());
+      albumAudio.addEventListener('play', () => {
+        playbackRequest++;
+        takeAlbumPlayback();
+        agoraStop.disabled = false;
+        agoraNowPlaying.textContent = 'Now playing: ' + AGORA_TRACKS[activeAgoraTrack].title;
+      });
+      albumAudio.addEventListener('pause', () => {
+        if (activeMedia === 'album' && !albumAudio.ended) agoraNowPlaying.textContent = 'Paused: ' + AGORA_TRACKS[activeAgoraTrack].title;
+      });
+      albumAudio.addEventListener('ended', () => {
+        if (activeAgoraTrack + 1 < AGORA_TRACKS.length) playAgoraTrack(activeAgoraTrack + 1);
+        else stopAgoraPlayback(true);
+      });
+      albumAudio.addEventListener('error', () => {
+        agoraNowPlaying.textContent = 'This track could not load. Choose another track or try again.';
+      });
       stormBtn.addEventListener('click', toggleStorm);
       prophecyBtn.addEventListener('click', spinProphecy);
       window.addEventListener('resize', resize);
@@ -3870,6 +4175,7 @@
         if (Math.random() > .82) spawnBolt(e.clientX, e.clientY, e.clientX + rand(-130, 130), e.clientY + rand(-115, 115), { life: 10, roughness: 20 });
       });
 
+      setSiteMuted(siteMuted);
       resize();
       updateProgress();
       updatePower(0);
