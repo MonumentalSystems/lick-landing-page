@@ -354,6 +354,9 @@
       box-shadow: 0 0 32px var(--release-accent);
     }
     .release-cover span { font-family: var(--font-mono); font-size: .7rem; letter-spacing: .2em; }
+    .release-cover--art { display: block; padding: 0; background: #05020b; }
+    .release-cover--art::after { content: none; }
+    .release-cover--art img { display: block; width: 100%; height: 100%; object-fit: cover; }
     .release-cover strong {
       position: relative;
       z-index: 1;
@@ -2184,43 +2187,49 @@
         </div>
         <div class="release-grid" aria-label="Albums and music videos">
           <article class="release-card" style="--release-accent:#ffc34e">
-            <div class="release-cover" aria-hidden="true"><span>MONUMENTAL SYSTEMS / 01</span><strong>Science<br>Rap Battles<br>v1</strong><span>SCIENCE TAKES THE MIC</span></div>
+            <div class="release-cover release-cover--art" aria-hidden="true"><img src="assets/covers/science-rap-battles-v1.webp" alt="" width="1254" height="1254" loading="lazy" decoding="async"></div>
             <h3>Science Rap Battles v1</h3>
             <p>The scientists take the stage. Listen to the complete playlist.</p>
             <a class="release-link" href="https://suno.com/playlist/392f2c33-1592-4fd7-90eb-90cf510a5cc7" target="_blank" rel="noopener noreferrer" aria-label="Listen to Science Rap Battles v1 on Suno (opens in a new tab)">Listen on Suno <span>NEW TAB ↗</span></a>
           </article>
           <article class="release-card" style="--release-accent:#18f2ff">
-            <div class="release-cover" aria-hidden="true"><span>MONUMENTAL SYSTEMS / 02</span><strong>Solvay<br>Smackdown</strong><span>PHYSICS IN THE RING</span></div>
+            <div class="release-cover release-cover--art" aria-hidden="true"><img src="assets/covers/solvay-smackdown.webp" alt="" width="1254" height="1254" loading="lazy" decoding="async"></div>
             <h3>Solvay Smackdown</h3>
             <p>Bring the physics. Bring the arguments. Enter the playlist.</p>
             <a class="release-link" href="https://suno.com/playlist/7a516a68-2af9-4a55-9eb6-0bb4525a957e" target="_blank" rel="noopener noreferrer" aria-label="Listen to Solvay Smackdown on Suno (opens in a new tab)">Listen on Suno <span>NEW TAB ↗</span></a>
           </article>
           <article class="release-card" style="--release-accent:#a78bfa">
-            <div class="release-cover" aria-hidden="true"><span>MONUMENTAL SYSTEMS / 03</span><strong>Steve<br>Net</strong><span>ENTER THE NETWORK</span></div>
+            <div class="release-cover release-cover--art" aria-hidden="true"><img src="assets/covers/steve-net.webp" alt="" width="1254" height="1254" loading="lazy" decoding="async"></div>
             <h3>Steve Net</h3>
             <p>Plug into Steve Net. The full playlist is waiting.</p>
             <a class="release-link" href="https://suno.com/playlist/023e0ed6-de01-4aa6-9291-0a3134648f57" target="_blank" rel="noopener noreferrer" aria-label="Listen to Steve Net on Suno (opens in a new tab)">Listen on Suno <span>NEW TAB ↗</span></a>
           </article>
           <article class="release-card" style="--release-accent:#ff6d00">
-            <div class="release-cover" aria-hidden="true"><span>MONUMENTAL SYSTEMS / 04</span><strong>Mathematics</strong><span>TURN THE PROOF UP</span></div>
+            <div class="release-cover release-cover--art" aria-hidden="true"><img src="assets/covers/mathematics.webp" alt="" width="1254" height="1254" loading="lazy" decoding="async"></div>
             <h3>Mathematics</h3>
             <p>Equations meet the amplifier. Explore the mathematics playlist.</p>
             <a class="release-link" href="https://suno.com/playlist/979673a3-5199-4ec5-99bd-ab8e9999a363" target="_blank" rel="noopener noreferrer" aria-label="Listen to Mathematics on Suno (opens in a new tab)">Listen on Suno <span>NEW TAB ↗</span></a>
           </article>
           <article class="release-card" style="--release-accent:#00ff88">
-            <div class="release-cover" aria-hidden="true"><span>MONUMENTAL SYSTEMS / 05</span><strong>AI and<br>Friends</strong><span>MORE THAN MACHINES</span></div>
+            <div class="release-cover release-cover--art" aria-hidden="true"><img src="assets/covers/ai-and-friends.webp" alt="" width="1254" height="1254" loading="lazy" decoding="async"></div>
             <h3>AI and Friends</h3>
             <p>The intelligence is artificial. The friends bring the voltage.</p>
             <a class="release-link" href="https://suno.com/playlist/f5e5f2de-4611-4086-a1f5-faee94f93988" target="_blank" rel="noopener noreferrer" aria-label="Listen to AI and Friends on Suno (opens in a new tab)">Listen on Suno <span>NEW TAB ↗</span></a>
           </article>
           <article class="release-card" style="--release-accent:#ff2aa3">
-            <div class="release-cover" aria-hidden="true"><span>MONUMENTAL SYSTEMS / VIDEO COLLECTION</span><strong>Agora<br>Smackdown</strong><span>THESEUS TO TURING</span></div>
+            <div class="release-cover release-cover--art" aria-hidden="true"><img src="assets/covers/agora-smackdown.webp" alt="" width="1254" height="1254" loading="lazy" decoding="async"></div>
             <h3>Agora Smackdown</h3>
             <p>Watch <em>Theseus to Turing</em>: 12 songs in order. Captain Theseus is the finished cut; the remaining videos are draft renders.</p>
             <div class="release-actions">
               <button class="release-link" id="playAgoraBtn" type="button" aria-controls="agoraPlayer">Play album <span>12 TRACKS ▶</span></button>
               <a class="release-link" href="https://claude.ai/artifact/RetkkXB83cxJRARMLNmnNh" target="_blank" rel="noopener noreferrer" aria-label="Watch Agora Smackdown music videos (opens in a new tab)">Watch the videos <span>NEW TAB ↗</span></a>
             </div>
+          </article>
+          <article class="release-card" style="--release-accent:#e59ab8">
+            <div class="release-cover release-cover--art" aria-hidden="true"><img src="assets/covers/what-i-do.webp" alt="" width="1254" height="1254" loading="lazy" decoding="async"></div>
+            <h3>What I Do</h3>
+            <p>Fourteen tracks of code, curiosity, and the daily life of a polymath.</p>
+            <a class="release-link" href="https://suno.com/playlist/2647c86d-9e35-4cd0-a612-0378e5529613" target="_blank" rel="noopener noreferrer" aria-label="Listen to What I Do on Suno (opens in a new tab)">Listen on Suno <span>NEW TAB ↗</span></a>
           </article>
         </div>
         <div class="album-player" id="agoraPlayer" role="region" aria-labelledby="agoraTitle">
