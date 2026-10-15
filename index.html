@@ -3813,7 +3813,8 @@
           entries.forEach(entry => {
             if (entry.isIntersecting) entry.target.classList.add('in');
           });
-        }, { threshold: .16 });
+        // Tall sections must reveal even when only a small part fits on screen.
+        }, { threshold: 0 });
         document.querySelectorAll('.reveal').forEach(el => io.observe(el));
       }
 
