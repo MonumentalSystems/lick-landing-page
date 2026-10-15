@@ -391,6 +391,14 @@
     .single-controls { margin: 0 0 16px; }
     .release-actions { display: grid; gap: 10px; margin-top: auto; }
     .release-actions .release-link { margin-top: 0; }
+    .suno-source-link { color: var(--muted); padding: 8px 0; font-size: .85rem; }
+    .suno-source-link:hover { color: var(--ink); }
+    .suno-source-link:focus-visible, .suno-album-select:focus-visible { outline: 3px solid var(--electric); outline-offset: 4px; }
+    .suno-album-select { display: block; width: 100%; min-height: 48px; margin: 8px 0 20px; padding: 10px; border: 1px solid var(--stroke); background: var(--bg); color: var(--ink); font: inherit; }
+    .suno-embed { margin: 20px 0; }
+    .suno-embed iframe { display: block; width: 100%; height: 240px; border: 0; border-radius: 12px; background: var(--bg); }
+    #sunoTracks { max-height: 24rem; overflow-y: auto; padding: 4px; }
+    #sunoTracks button { overflow-wrap: anywhere; }
     .album-player { padding: clamp(18px, 3vw, 32px); margin-bottom: 64px; border: 1px solid var(--hot); background: var(--blackglass); scroll-margin-top: 100px; }
     .album-player h3 { margin: 12px 0; font-family: var(--font-display); font-size: clamp(2rem, 5vw, 3.5rem); text-transform: uppercase; }
     .album-player p { color: var(--muted); line-height: 1.6; }
@@ -2183,38 +2191,53 @@
         <div class="section-head">
           <div class="kicker">The Records + The Videos</div>
           <h2 class="section-title">The LICK Discography</h2>
-          <p class="section-copy">Science, mathematics, AI, and a little philosophical combat. Listen to Agora Smackdown right here, choose a playlist on Suno, or watch the music videos. External listening links open in a new tab and mute this site's soundtrack.</p>
+          <p class="section-copy">Science, mathematics, AI, and a little philosophical combat. Choose an album and listen right here, or watch the Agora Smackdown music videos. The site soundtrack pauses while you use an album player.</p>
         </div>
         <div class="release-grid" aria-label="Albums and music videos">
           <article class="release-card" style="--release-accent:#ffc34e">
             <div class="release-cover release-cover--art" aria-hidden="true"><img src="assets/covers/science-rap-battles-v1.webp" alt="" width="1254" height="1254" loading="lazy" decoding="async"></div>
             <h3>Science Rap Battles v1</h3>
             <p>The scientists take the stage. Listen to the complete playlist.</p>
-            <a class="release-link" href="https://suno.com/playlist/392f2c33-1592-4fd7-90eb-90cf510a5cc7" target="_blank" rel="noopener noreferrer" aria-label="Listen to Science Rap Battles v1 on Suno (opens in a new tab)">Listen on Suno <span>NEW TAB ↗</span></a>
+            <div class="release-actions">
+              <button class="release-link" type="button" data-suno-album="science-rap-battles-v1" aria-controls="sunoPlayer" aria-label="Listen to Science Rap Battles v1 here">Listen here <span>17 TRACKS ▶</span></button>
+              <a class="suno-source-link" href="https://suno.com/playlist/392f2c33-1592-4fd7-90eb-90cf510a5cc7" target="_blank" rel="noopener noreferrer" aria-label="Listen to Science Rap Battles v1 on Suno (opens in a new tab)">Open playlist on Suno ↗</a>
+            </div>
           </article>
           <article class="release-card" style="--release-accent:#18f2ff">
             <div class="release-cover release-cover--art" aria-hidden="true"><img src="assets/covers/solvay-smackdown.webp" alt="" width="1254" height="1254" loading="lazy" decoding="async"></div>
             <h3>Solvay Smackdown</h3>
             <p>Bring the physics. Bring the arguments. Enter the playlist.</p>
-            <a class="release-link" href="https://suno.com/playlist/7a516a68-2af9-4a55-9eb6-0bb4525a957e" target="_blank" rel="noopener noreferrer" aria-label="Listen to Solvay Smackdown on Suno (opens in a new tab)">Listen on Suno <span>NEW TAB ↗</span></a>
+            <div class="release-actions">
+              <button class="release-link" type="button" data-suno-album="solvay-smackdown" aria-controls="sunoPlayer" aria-label="Listen to Solvay Smackdown here">Listen here <span>12 TRACKS ▶</span></button>
+              <a class="suno-source-link" href="https://suno.com/playlist/7a516a68-2af9-4a55-9eb6-0bb4525a957e" target="_blank" rel="noopener noreferrer" aria-label="Listen to Solvay Smackdown on Suno (opens in a new tab)">Open playlist on Suno ↗</a>
+            </div>
           </article>
           <article class="release-card" style="--release-accent:#a78bfa">
             <div class="release-cover release-cover--art" aria-hidden="true"><img src="assets/covers/steve-net.webp" alt="" width="1254" height="1254" loading="lazy" decoding="async"></div>
             <h3>Steve Net</h3>
             <p>Plug into Steve Net. The full playlist is waiting.</p>
-            <a class="release-link" href="https://suno.com/playlist/023e0ed6-de01-4aa6-9291-0a3134648f57" target="_blank" rel="noopener noreferrer" aria-label="Listen to Steve Net on Suno (opens in a new tab)">Listen on Suno <span>NEW TAB ↗</span></a>
+            <div class="release-actions">
+              <button class="release-link" type="button" data-suno-album="steve-net" aria-controls="sunoPlayer" aria-label="Listen to Steve Net here">Listen here <span>17 TRACKS ▶</span></button>
+              <a class="suno-source-link" href="https://suno.com/playlist/023e0ed6-de01-4aa6-9291-0a3134648f57" target="_blank" rel="noopener noreferrer" aria-label="Listen to Steve Net on Suno (opens in a new tab)">Open playlist on Suno ↗</a>
+            </div>
           </article>
           <article class="release-card" style="--release-accent:#ff6d00">
             <div class="release-cover release-cover--art" aria-hidden="true"><img src="assets/covers/mathematics.webp" alt="" width="1254" height="1254" loading="lazy" decoding="async"></div>
             <h3>Mathematics</h3>
             <p>Equations meet the amplifier. Explore the mathematics playlist.</p>
-            <a class="release-link" href="https://suno.com/playlist/979673a3-5199-4ec5-99bd-ab8e9999a363" target="_blank" rel="noopener noreferrer" aria-label="Listen to Mathematics on Suno (opens in a new tab)">Listen on Suno <span>NEW TAB ↗</span></a>
+            <div class="release-actions">
+              <button class="release-link" type="button" data-suno-album="mathematics" aria-controls="sunoPlayer" aria-label="Listen to Mathematics here">Listen here <span>17 TRACKS ▶</span></button>
+              <a class="suno-source-link" href="https://suno.com/playlist/979673a3-5199-4ec5-99bd-ab8e9999a363" target="_blank" rel="noopener noreferrer" aria-label="Listen to Mathematics on Suno (opens in a new tab)">Open playlist on Suno ↗</a>
+            </div>
           </article>
           <article class="release-card" style="--release-accent:#00ff88">
             <div class="release-cover release-cover--art" aria-hidden="true"><img src="assets/covers/ai-and-friends.webp" alt="" width="1254" height="1254" loading="lazy" decoding="async"></div>
             <h3>AI and Friends</h3>
             <p>The intelligence is artificial. The friends bring the voltage.</p>
-            <a class="release-link" href="https://suno.com/playlist/f5e5f2de-4611-4086-a1f5-faee94f93988" target="_blank" rel="noopener noreferrer" aria-label="Listen to AI and Friends on Suno (opens in a new tab)">Listen on Suno <span>NEW TAB ↗</span></a>
+            <div class="release-actions">
+              <button class="release-link" type="button" data-suno-album="ai-and-friends" aria-controls="sunoPlayer" aria-label="Listen to AI and Friends here">Listen here <span>15 TRACKS ▶</span></button>
+              <a class="suno-source-link" href="https://suno.com/playlist/f5e5f2de-4611-4086-a1f5-faee94f93988" target="_blank" rel="noopener noreferrer" aria-label="Listen to AI and Friends on Suno (opens in a new tab)">Open playlist on Suno ↗</a>
+            </div>
           </article>
           <article class="release-card" style="--release-accent:#ff2aa3">
             <div class="release-cover release-cover--art" aria-hidden="true"><img src="assets/covers/agora-smackdown.webp" alt="" width="1254" height="1254" loading="lazy" decoding="async"></div>
@@ -2229,8 +2252,27 @@
             <div class="release-cover release-cover--art" aria-hidden="true"><img src="assets/covers/what-i-do.webp" alt="" width="1254" height="1254" loading="lazy" decoding="async"></div>
             <h3>What I Do</h3>
             <p>Fourteen tracks of code, curiosity, and the daily life of a polymath.</p>
-            <a class="release-link" href="https://suno.com/playlist/2647c86d-9e35-4cd0-a612-0378e5529613" target="_blank" rel="noopener noreferrer" aria-label="Listen to What I Do on Suno (opens in a new tab)">Listen on Suno <span>NEW TAB ↗</span></a>
+            <div class="release-actions">
+              <button class="release-link" type="button" data-suno-album="what-i-do" aria-controls="sunoPlayer" aria-label="Listen to What I Do here">Listen here <span>14 TRACKS ▶</span></button>
+              <a class="suno-source-link" href="https://suno.com/playlist/2647c86d-9e35-4cd0-a612-0378e5529613" target="_blank" rel="noopener noreferrer" aria-label="Listen to What I Do on Suno (opens in a new tab)">Open playlist on Suno ↗</a>
+            </div>
           </article>
+        </div>
+        <div class="album-player" id="sunoPlayer" role="region" aria-labelledby="sunoTitle" hidden>
+          <div class="kicker">Listen on LICK / Powered by Suno</div>
+          <h3 id="sunoTitle" tabindex="-1">Choose an album</h3>
+          <label for="sunoAlbumSelect">Album</label>
+          <select class="suno-album-select" id="sunoAlbumSelect"></select>
+          <p>Choose a song, then press play in the Suno player. Use the track list or Previous/Next to change songs.</p>
+          <p id="sunoNowPlaying" role="status" aria-live="polite">Choose a song to load the player.</p>
+          <div class="suno-embed" id="sunoEmbed"></div>
+          <button class="sound" id="sunoReload" type="button" hidden>Load song again</button>
+          <div class="album-player__controls">
+            <button class="sound" id="sunoPrevious" type="button" disabled>Previous Suno track</button>
+            <button class="sound" id="sunoNext" type="button" disabled>Next Suno track</button>
+            <button class="sound" id="sunoStop" type="button" disabled>Stop Suno player</button>
+          </div>
+          <ol class="album-tracks" id="sunoTracks" aria-label="Album running order"></ol>
         </div>
         <div class="album-player" id="agoraPlayer" role="region" aria-labelledby="agoraTitle">
           <div class="kicker">Agora Smackdown / 12 tracks</div>
@@ -2370,6 +2412,7 @@
     </div>
   </div>
 
+  <script src="assets/suno-albums.js"></script>
   <script>
     (() => {
       const root = document.documentElement;
@@ -2394,6 +2437,18 @@
       const reactorAudio = document.getElementById('reactorAudio');
       const idleAudio = document.getElementById('idleAudio');
       const albumAudio = document.getElementById('albumAudio');
+      const sunoPlayer = document.getElementById('sunoPlayer');
+      const sunoTitle = document.getElementById('sunoTitle');
+      const sunoAlbumSelect = document.getElementById('sunoAlbumSelect');
+      const sunoEmbed = document.getElementById('sunoEmbed');
+      const sunoNowPlaying = document.getElementById('sunoNowPlaying');
+      const sunoTracks = document.getElementById('sunoTracks');
+      const sunoPrevious = document.getElementById('sunoPrevious');
+      const sunoNext = document.getElementById('sunoNext');
+      const sunoStop = document.getElementById('sunoStop');
+      const sunoReload = document.getElementById('sunoReload');
+      let activeSunoAlbum = null;
+      let activeSunoTrack = -1;
       const agoraNowPlaying = document.getElementById('agoraNowPlaying');
       const agoraPrevious = document.getElementById('agoraPrevious');
       const agoraNext = document.getElementById('agoraNext');
@@ -2420,6 +2475,11 @@
 
       function setSiteMuted(muted) {
         siteMuted = muted;
+        if (muted && activeMedia === 'suno') {
+          clearSunoEmbed('Song stopped by Mute. Load it again when you are ready to listen.');
+          sunoStop.disabled = false;
+        }
+        sunoReload.textContent = muted ? 'Unmute and load song' : 'Load song again';
         document.querySelectorAll('audio, video').forEach(el => { el.muted = muted; });
         if (audio.outputGain) audio.outputGain.gain.setValueAtTime(muted ? 0 : 1, audio.ctx.currentTime);
         muteButtons.forEach(button => {
@@ -2458,7 +2518,7 @@
       let lastIgnite = 0;
       let activeMedia = null;
       let playbackRequest = 0;
-      const exclusiveMediaActive = () => activeMedia === 'video' || activeMedia === 'album';
+      const exclusiveMediaActive = () => activeMedia === 'video' || activeMedia === 'album' || activeMedia === 'suno';
       let reactorWanted = false;
       let idleWanted = true;
       let ambientGestureArmed = false;
@@ -3010,6 +3070,7 @@
       function playTrack(key) {
         const track = TRACKS[key];
         if (!track || !singleModal) return;
+        if (activeMedia === 'suno') clearSunoEmbed('Suno player stopped for the featured single.');
         const request = ++playbackRequest;
         if (activeMedia === 'album') {
           albumAudio.pause();
@@ -3050,7 +3111,8 @@
         resumeAmbient();
       }
 
-      function takeAlbumPlayback() {
+      function takeAlbumPlayback(source = 'album') {
+        if (source === 'album' && activeMedia === 'suno') clearSunoEmbed('Suno player stopped for Agora Smackdown.');
         stopGeneratedMusic();
         clearTrackModeTimers();
         stopTrackMedia();
@@ -3058,11 +3120,88 @@
         singleModal.setAttribute('aria-hidden', 'true');
         stopElement(idleAudio);
         stopElement(reactorAudio);
-        activeMedia = 'album';
+        activeMedia = source;
         body.classList.remove('core-idle', 'reactor-online', 'track-chaos', 'track-inevitable');
         stormMode = false;
         stormBtn?.setAttribute('aria-pressed', 'false');
-        startMediaEnergy(albumAudio);
+        if (source === 'album') startMediaEnergy(albumAudio);
+      }
+
+      function clearSunoEmbed(message) {
+        // Removing the cross-origin player stops its audio without relying on a private player API.
+        sunoEmbed.replaceChildren();
+        sunoStop.disabled = true;
+        sunoReload.hidden = !activeSunoAlbum;
+        sunoReload.textContent = siteMuted ? 'Unmute and load song' : 'Load song again';
+        if (message) sunoNowPlaying.textContent = message;
+      }
+
+      function playSunoTrack(index) {
+        const track = activeSunoAlbum?.tracks[index];
+        if (!track) return;
+        playbackRequest++;
+        albumAudio.pause();
+        takeAlbumPlayback('suno');
+        activeSunoTrack = index;
+        clearSunoEmbed();
+        sunoPrevious.disabled = index === 0;
+        sunoNext.disabled = index === activeSunoAlbum.tracks.length - 1;
+        sunoStop.disabled = false;
+        sunoTracks.querySelectorAll('button').forEach((button, i) => button.setAttribute('aria-current', String(i === index)));
+        if (siteMuted) {
+          sunoNowPlaying.textContent = 'Selected: ' + track.title + '. Unmute and load the song to listen.';
+          return;
+        }
+        const frame = document.createElement('iframe');
+        frame.src = 'https://suno.com/embed/' + track.id;
+        frame.title = track.title + ' — Suno audio player';
+        frame.width = '760';
+        frame.height = '240';
+        frame.allow = 'autoplay; encrypted-media; fullscreen';
+        frame.allowFullscreen = true;
+        frame.loading = 'lazy';
+        frame.referrerPolicy = 'no-referrer-when-downgrade';
+        sunoEmbed.appendChild(frame);
+        sunoReload.hidden = true;
+        sunoStop.disabled = false;
+        sunoNowPlaying.textContent = 'Ready: ' + String(index + 1).padStart(2, '0') + ' / ' + track.title + '. Press play below.';
+      }
+
+      function selectSunoAlbum(id, moveToPlayer = false) {
+        const album = SUNO_ALBUMS.find(item => item.id === id);
+        if (!album) return;
+        activeSunoAlbum = album;
+        sunoPlayer.hidden = false;
+        sunoTitle.textContent = album.title;
+        sunoAlbumSelect.value = album.id;
+        sunoTracks.setAttribute('aria-label', album.title + ' running order');
+        sunoTracks.replaceChildren();
+        album.tracks.forEach((track, index) => {
+          const item = document.createElement('li');
+          const button = document.createElement('button');
+          button.type = 'button';
+          const number = document.createElement('span');
+          number.textContent = String(index + 1).padStart(2, '0');
+          button.append(number, document.createTextNode(track.title));
+          button.addEventListener('click', () => playSunoTrack(index));
+          item.appendChild(button);
+          sunoTracks.appendChild(item);
+        });
+        sunoTracks.scrollTop = 0;
+        playSunoTrack(0);
+        if (moveToPlayer) {
+          sunoTitle.focus({ preventScroll: true });
+          sunoPlayer.scrollIntoView({ behavior: reducedMotion ? 'instant' : 'smooth' });
+        }
+      }
+
+      function stopSunoPlayback() {
+        playbackRequest++;
+        clearSunoEmbed('Suno player stopped. Choose a song to listen again.');
+        if (activeMedia === 'suno') {
+          activeMedia = null;
+          resumeAmbient();
+        }
       }
 
       function playAgoraTrack(index) {
@@ -4124,9 +4263,24 @@
         setSiteMuted(!siteMuted);
         showToast(siteMuted ? 'All site audio muted.' : 'Site audio unmuted.');
       }));
-      document.querySelectorAll('a.release-link').forEach(link => {
+      document.querySelectorAll('a.release-link, a.suno-source-link').forEach(link => {
         link.addEventListener('click', () => setSiteMuted(true));
         link.addEventListener('auxclick', e => { if (e.button === 1) setSiteMuted(true); });
+      });
+      SUNO_ALBUMS.forEach(album => {
+        const option = document.createElement('option');
+        option.value = album.id;
+        option.textContent = album.title;
+        sunoAlbumSelect.appendChild(option);
+      });
+      document.querySelectorAll('[data-suno-album]').forEach(button => button.addEventListener('click', () => selectSunoAlbum(button.dataset.sunoAlbum, true)));
+      sunoAlbumSelect.addEventListener('change', () => selectSunoAlbum(sunoAlbumSelect.value));
+      sunoPrevious.addEventListener('click', () => playSunoTrack(activeSunoTrack - 1));
+      sunoNext.addEventListener('click', () => playSunoTrack(activeSunoTrack + 1));
+      sunoStop.addEventListener('click', stopSunoPlayback);
+      sunoReload.addEventListener('click', () => {
+        setSiteMuted(false);
+        playSunoTrack(activeSunoTrack);
       });
       AGORA_TRACKS.forEach((track, index) => {
         const item = document.createElement('li');
